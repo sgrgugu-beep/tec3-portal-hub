@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AvisosRouteImport } from './routes/avisos'
+import { Route as CalendarioRouteImport } from './routes/calendario'
+import { Route as CapacitacionesRouteImport } from './routes/capacitaciones'
+import { Route as CentroDeEstudiantesRouteImport } from './routes/centro-de-estudiantes'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as InstitucionalRouteImport } from './routes/institucional'
+import { Route as MateriasRouteImport } from './routes/materias'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvisosRoute = AvisosRouteImport.update({
+  id: '/avisos',
+  path: '/avisos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarioRoute = CalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CapacitacionesRoute = CapacitacionesRouteImport.update({
+  id: '/capacitaciones',
+  path: '/capacitaciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CentroDeEstudiantesRoute = CentroDeEstudiantesRouteImport.update({
+  id: '/centro-de-estudiantes',
+  path: '/centro-de-estudiantes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstitucionalRoute = InstitucionalRouteImport.update({
+  id: '/institucional',
+  path: '/institucional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MateriasRoute = MateriasRouteImport.update({
+  id: '/materias',
+  path: '/materias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
+  '/capacitaciones': typeof CapacitacionesRoute
+  '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/contacto': typeof ContactoRoute
+  '/galeria': typeof GaleriaRoute
+  '/institucional': typeof InstitucionalRoute
+  '/materias': typeof MateriasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
+  '/capacitaciones': typeof CapacitacionesRoute
+  '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/contacto': typeof ContactoRoute
+  '/galeria': typeof GaleriaRoute
+  '/institucional': typeof InstitucionalRoute
+  '/materias': typeof MateriasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
+  '/capacitaciones': typeof CapacitacionesRoute
+  '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/contacto': typeof ContactoRoute
+  '/galeria': typeof GaleriaRoute
+  '/institucional': typeof InstitucionalRoute
+  '/materias': typeof MateriasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/avisos'
+    | '/calendario'
+    | '/capacitaciones'
+    | '/centro-de-estudiantes'
+    | '/contacto'
+    | '/galeria'
+    | '/institucional'
+    | '/materias'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/avisos'
+    | '/calendario'
+    | '/capacitaciones'
+    | '/centro-de-estudiantes'
+    | '/contacto'
+    | '/galeria'
+    | '/institucional'
+    | '/materias'
+  id:
+    | '__root__'
+    | '/'
+    | '/avisos'
+    | '/calendario'
+    | '/capacitaciones'
+    | '/centro-de-estudiantes'
+    | '/contacto'
+    | '/galeria'
+    | '/institucional'
+    | '/materias'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AvisosRoute: typeof AvisosRoute
+  CalendarioRoute: typeof CalendarioRoute
+  CapacitacionesRoute: typeof CapacitacionesRoute
+  CentroDeEstudiantesRoute: typeof CentroDeEstudiantesRoute
+  ContactoRoute: typeof ContactoRoute
+  GaleriaRoute: typeof GaleriaRoute
+  InstitucionalRoute: typeof InstitucionalRoute
+  MateriasRoute: typeof MateriasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/avisos': {
+      id: '/avisos'
+      path: '/avisos'
+      fullPath: '/avisos'
+      preLoaderRoute: typeof AvisosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendario': {
+      id: '/calendario'
+      path: '/calendario'
+      fullPath: '/calendario'
+      preLoaderRoute: typeof CalendarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/capacitaciones': {
+      id: '/capacitaciones'
+      path: '/capacitaciones'
+      fullPath: '/capacitaciones'
+      preLoaderRoute: typeof CapacitacionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/centro-de-estudiantes': {
+      id: '/centro-de-estudiantes'
+      path: '/centro-de-estudiantes'
+      fullPath: '/centro-de-estudiantes'
+      preLoaderRoute: typeof CentroDeEstudiantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/institucional': {
+      id: '/institucional'
+      path: '/institucional'
+      fullPath: '/institucional'
+      preLoaderRoute: typeof InstitucionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materias': {
+      id: '/materias'
+      path: '/materias'
+      fullPath: '/materias'
+      preLoaderRoute: typeof MateriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AvisosRoute: AvisosRoute,
+  CalendarioRoute: CalendarioRoute,
+  CapacitacionesRoute: CapacitacionesRoute,
+  CentroDeEstudiantesRoute: CentroDeEstudiantesRoute,
+  ContactoRoute: ContactoRoute,
+  GaleriaRoute: GaleriaRoute,
+  InstitucionalRoute: InstitucionalRoute,
+  MateriasRoute: MateriasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
