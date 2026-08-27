@@ -14,6 +14,7 @@ import { Route as AvisosRouteImport } from './routes/avisos'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as CapacitacionesRouteImport } from './routes/capacitaciones'
 import { Route as CentroDeEstudiantesRouteImport } from './routes/centro-de-estudiantes'
+import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as MateriasRouteImport } from './routes/materias'
 
@@ -42,6 +43,11 @@ const CentroDeEstudiantesRoute = CentroDeEstudiantesRouteImport.update({
   path: '/centro-de-estudiantes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstitucionalRoute = InstitucionalRouteImport.update({
   id: '/institucional',
   path: '/institucional',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
+  '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/calendario'
     | '/capacitaciones'
     | '/centro-de-estudiantes'
+    | '/galeria'
     | '/institucional'
     | '/materias'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/calendario'
     | '/capacitaciones'
     | '/centro-de-estudiantes'
+    | '/galeria'
     | '/institucional'
     | '/materias'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/calendario'
     | '/capacitaciones'
     | '/centro-de-estudiantes'
+    | '/galeria'
     | '/institucional'
     | '/materias'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   CalendarioRoute: typeof CalendarioRoute
   CapacitacionesRoute: typeof CapacitacionesRoute
   CentroDeEstudiantesRoute: typeof CentroDeEstudiantesRoute
+  GaleriaRoute: typeof GaleriaRoute
   InstitucionalRoute: typeof InstitucionalRoute
   MateriasRoute: typeof MateriasRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CentroDeEstudiantesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/institucional': {
       id: '/institucional'
       path: '/institucional'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarioRoute: CalendarioRoute,
   CapacitacionesRoute: CapacitacionesRoute,
   CentroDeEstudiantesRoute: CentroDeEstudiantesRoute,
+  GaleriaRoute: GaleriaRoute,
   InstitucionalRoute: InstitucionalRoute,
   MateriasRoute: MateriasRoute,
 }
