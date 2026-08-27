@@ -56,12 +56,7 @@ export function BuscadorGlobal() {
         <span className="hidden lg:inline">Buscar en el sitio</span>
       </Button>
 
-      <CommandDialog
-        open={abierto}
-        onOpenChange={setAbierto}
-        title="Buscador del sitio"
-        description="Buscá entre avisos, materias, capacitaciones y eventos del calendario."
-      >
+      <CommandDialog open={abierto} onOpenChange={setAbierto}>
         <CommandInput
           value={consulta}
           onValueChange={setConsulta}
