@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AvisosRouteImport } from './routes/avisos'
+import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const AvisosRoute = AvisosRouteImport.update({
   path: '/avisos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarioRoute = CalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstitucionalRoute = InstitucionalRouteImport.update({
   id: '/institucional',
   path: '/institucional',
@@ -32,30 +38,34 @@ const InstitucionalRoute = InstitucionalRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
   '/institucional': typeof InstitucionalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
   '/institucional': typeof InstitucionalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/avisos': typeof AvisosRoute
+  '/calendario': typeof CalendarioRoute
   '/institucional': typeof InstitucionalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/avisos' | '/institucional'
+  fullPaths: '/' | '/avisos' | '/calendario' | '/institucional'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/avisos' | '/institucional'
-  id: '__root__' | '/' | '/avisos' | '/institucional'
+  to: '/' | '/avisos' | '/calendario' | '/institucional'
+  id: '__root__' | '/' | '/avisos' | '/calendario' | '/institucional'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisosRoute: typeof AvisosRoute
+  CalendarioRoute: typeof CalendarioRoute
   InstitucionalRoute: typeof InstitucionalRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AvisosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendario': {
+      id: '/calendario'
+      path: '/calendario'
+      fullPath: '/calendario'
+      preLoaderRoute: typeof CalendarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/institucional': {
       id: '/institucional'
       path: '/institucional'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisosRoute: AvisosRoute,
+  CalendarioRoute: CalendarioRoute,
   InstitucionalRoute: InstitucionalRoute,
 }
 export const routeTree = rootRouteImport
