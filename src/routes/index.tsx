@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, GraduationCap, Mail, Megaphone } from "lucide-react";
 
 import heroEscuela from "@/assets/hero-escuela.jpg";
+import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -80,6 +81,13 @@ function Inicio() {
         <div className="gradiente-institucional absolute inset-0 opacity-95" aria-hidden="true" />
         <div className="contenedor relative py-24 lg:py-32">
           <div className="max-w-2xl text-primary-foreground">
+            <img
+              src={logoEscuela.url}
+              alt="Escudo de la E.E.S.T. N° 3 República de México, Wilde, Avellaneda"
+              className="mb-6 size-24 rounded-lg bg-background/90 p-1 shadow-lg"
+              width={96}
+              height={96}
+            />
             <Badge variant="secondary" className="mb-5">
               Educación técnica pública · {escuela.localidad}
             </Badge>
