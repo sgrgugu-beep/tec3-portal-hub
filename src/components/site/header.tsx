@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 
 import { Button } from "@/components/ui/button";
 import { BuscadorGlobal } from "@/components/site/buscador-global";
@@ -32,9 +33,13 @@ export function Header() {
       </a>
       <div className="contenedor flex h-16 items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3" aria-label={`Inicio — ${escuela.nombreCorto}`}>
-          <span className="gradiente-institucional flex size-10 shrink-0 items-center justify-center rounded-md text-primary-foreground">
-            <GraduationCap className="size-6" aria-hidden="true" />
-          </span>
+          <img
+            src={logoEscuela.url}
+            alt="Escudo de la E.E.S.T. N° 3 República de México, Wilde, Avellaneda"
+            className="size-10 shrink-0 rounded-md object-contain"
+            width={40}
+            height={40}
+          />
           <span className="leading-tight">
             <span className="block font-display text-base font-semibold">Técnica 3 Avellaneda</span>
             <span className="block text-xs text-muted-foreground">E.E.S.T. N° 3 "República de México"</span>
