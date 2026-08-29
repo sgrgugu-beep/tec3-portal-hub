@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, GraduationCap, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
+import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 
 import { escuela } from "@/lib/contenido";
 
@@ -20,9 +21,14 @@ export function Footer() {
       <div className="contenedor grid gap-10 py-14 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">
-            <span className="gradiente-institucional flex size-10 items-center justify-center rounded-md text-primary-foreground">
-              <GraduationCap className="size-6" aria-hidden="true" />
-            </span>
+            <img
+              src={logoEscuela.url}
+              alt="Escudo de la E.E.S.T. N° 3 República de México, Wilde, Avellaneda"
+              className="size-10 rounded-md object-contain"
+              width={40}
+              height={40}
+              loading="lazy"
+            />
             <span className="font-display text-lg font-semibold">Técnica 3 Avellaneda</span>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
