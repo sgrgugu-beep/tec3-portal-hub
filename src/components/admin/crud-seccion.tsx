@@ -35,7 +35,7 @@ export type Campo = {
   ocultarEnTabla?: boolean;
 };
 
-type Fila = Record<string, any>;
+type Fila = { id?: string } & Record<string, any>;
 
 interface Props {
   tabla: string;

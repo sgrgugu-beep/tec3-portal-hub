@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AvisosRouteImport } from './routes/avisos'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as CapacitacionesRouteImport } from './routes/capacitaciones'
@@ -18,10 +20,20 @@ import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as MateriasRouteImport } from './routes/materias'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AvisosRoute = AvisosRouteImport.update({
@@ -64,9 +76,15 @@ const MateriasRoute = MateriasRouteImport.update({
   path: '/materias',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/avisos': typeof AvisosRoute
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
@@ -75,9 +93,11 @@ export interface FileRoutesByFullPath {
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/avisos': typeof AvisosRoute
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
@@ -86,10 +106,13 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/avisos': typeof AvisosRoute
   '/calendario': typeof CalendarioRoute
   '/capacitaciones': typeof CapacitacionesRoute
@@ -98,11 +121,13 @@ export interface FileRoutesById {
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/avisos'
     | '/calendario'
     | '/capacitaciones'
@@ -111,9 +136,11 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucional'
     | '/materias'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/avisos'
     | '/calendario'
     | '/capacitaciones'
@@ -122,9 +149,12 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucional'
     | '/materias'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/avisos'
     | '/calendario'
     | '/capacitaciones'
@@ -133,10 +163,13 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucional'
     | '/materias'
+    | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   AvisosRoute: typeof AvisosRoute
   CalendarioRoute: typeof CalendarioRoute
   CapacitacionesRoute: typeof CapacitacionesRoute
@@ -154,6 +187,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/avisos': {
@@ -212,11 +259,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MateriasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   AvisosRoute: AvisosRoute,
   CalendarioRoute: CalendarioRoute,
   CapacitacionesRoute: CapacitacionesRoute,

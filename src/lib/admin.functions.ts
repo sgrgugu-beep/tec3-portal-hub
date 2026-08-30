@@ -177,7 +177,7 @@ export const canjearInvitacion = createServerFn({ method: "POST" })
       await supabaseAdmin
         .from("permisos_seccion")
         .upsert(
-          inv.secciones.map((seccion: string) => ({ user_id: context.userId, seccion })),
+          inv.secciones.map((seccion: string) => ({ user_id: context.userId, seccion })) as any,
           { onConflict: "user_id,seccion" },
         );
     }
