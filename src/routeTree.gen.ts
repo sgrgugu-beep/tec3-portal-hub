@@ -22,15 +22,18 @@ import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as MateriasRouteImport } from './routes/materias'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminAuditoriaRouteImport } from './routes/_authenticated/admin.auditoria'
 import { Route as AuthenticatedAdminAvisosRouteImport } from './routes/_authenticated/admin.avisos'
 import { Route as AuthenticatedAdminCalendarioRouteImport } from './routes/_authenticated/admin.calendario'
 import { Route as AuthenticatedAdminCapacitacionesRouteImport } from './routes/_authenticated/admin.capacitaciones'
 import { Route as AuthenticatedAdminCategoriasRouteImport } from './routes/_authenticated/admin.categorias'
 import { Route as AuthenticatedAdminCentroRouteImport } from './routes/_authenticated/admin.centro'
+import { Route as AuthenticatedAdminConfiguracionRouteImport } from './routes/_authenticated/admin.configuracion'
 import { Route as AuthenticatedAdminGaleriaRouteImport } from './routes/_authenticated/admin.galeria'
 import { Route as AuthenticatedAdminInstitucionalRouteImport } from './routes/_authenticated/admin.institucional'
 import { Route as AuthenticatedAdminMateriasRouteImport } from './routes/_authenticated/admin.materias'
 import { Route as AuthenticatedAdminMensajesRouteImport } from './routes/_authenticated/admin.mensajes'
+import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin.usuarios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -96,6 +99,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAuditoriaRoute =
+  AuthenticatedAdminAuditoriaRouteImport.update({
+    id: '/auditoria',
+    path: '/auditoria',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAvisosRoute =
   AuthenticatedAdminAvisosRouteImport.update({
     id: '/avisos',
@@ -126,6 +135,12 @@ const AuthenticatedAdminCentroRoute =
     path: '/centro',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminConfiguracionRoute =
+  AuthenticatedAdminConfiguracionRouteImport.update({
+    id: '/configuracion',
+    path: '/configuracion',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminGaleriaRoute =
   AuthenticatedAdminGaleriaRouteImport.update({
     id: '/galeria',
@@ -150,6 +165,12 @@ const AuthenticatedAdminMensajesRoute =
     path: '/mensajes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminUsuariosRoute =
+  AuthenticatedAdminUsuariosRouteImport.update({
+    id: '/usuarios',
+    path: '/usuarios',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -163,15 +184,18 @@ export interface FileRoutesByFullPath {
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/capacitaciones': typeof AuthenticatedAdminCapacitacionesRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/centro': typeof AuthenticatedAdminCentroRoute
+  '/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
   '/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -185,15 +209,18 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
+  '/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/admin/capacitaciones': typeof AuthenticatedAdminCapacitacionesRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/centro': typeof AuthenticatedAdminCentroRoute
+  '/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
   '/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -210,15 +237,18 @@ export interface FileRoutesById {
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/_authenticated/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
   '/_authenticated/admin/capacitaciones': typeof AuthenticatedAdminCapacitacionesRoute
   '/_authenticated/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/_authenticated/admin/centro': typeof AuthenticatedAdminCentroRoute
+  '/_authenticated/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/_authenticated/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
   '/_authenticated/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/_authenticated/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/_authenticated/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
+  '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -235,15 +265,18 @@ export interface FileRouteTypes {
     | '/institucional'
     | '/materias'
     | '/admin'
+    | '/admin/auditoria'
     | '/admin/avisos'
     | '/admin/calendario'
     | '/admin/capacitaciones'
     | '/admin/categorias'
     | '/admin/centro'
+    | '/admin/configuracion'
     | '/admin/galeria'
     | '/admin/institucional'
     | '/admin/materias'
     | '/admin/mensajes'
+    | '/admin/usuarios'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -257,15 +290,18 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/institucional'
     | '/materias'
+    | '/admin/auditoria'
     | '/admin/avisos'
     | '/admin/calendario'
     | '/admin/capacitaciones'
     | '/admin/categorias'
     | '/admin/centro'
+    | '/admin/configuracion'
     | '/admin/galeria'
     | '/admin/institucional'
     | '/admin/materias'
     | '/admin/mensajes'
+    | '/admin/usuarios'
     | '/admin'
   id:
     | '__root__'
@@ -281,15 +317,18 @@ export interface FileRouteTypes {
     | '/institucional'
     | '/materias'
     | '/_authenticated/admin'
+    | '/_authenticated/admin/auditoria'
     | '/_authenticated/admin/avisos'
     | '/_authenticated/admin/calendario'
     | '/_authenticated/admin/capacitaciones'
     | '/_authenticated/admin/categorias'
     | '/_authenticated/admin/centro'
+    | '/_authenticated/admin/configuracion'
     | '/_authenticated/admin/galeria'
     | '/_authenticated/admin/institucional'
     | '/_authenticated/admin/materias'
     | '/_authenticated/admin/mensajes'
+    | '/_authenticated/admin/usuarios'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -400,6 +439,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/auditoria': {
+      id: '/_authenticated/admin/auditoria'
+      path: '/auditoria'
+      fullPath: '/admin/auditoria'
+      preLoaderRoute: typeof AuthenticatedAdminAuditoriaRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/avisos': {
       id: '/_authenticated/admin/avisos'
       path: '/avisos'
@@ -435,6 +481,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCentroRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/configuracion': {
+      id: '/_authenticated/admin/configuracion'
+      path: '/configuracion'
+      fullPath: '/admin/configuracion'
+      preLoaderRoute: typeof AuthenticatedAdminConfiguracionRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/galeria': {
       id: '/_authenticated/admin/galeria'
       path: '/galeria'
@@ -463,32 +516,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMensajesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/usuarios': {
+      id: '/_authenticated/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAuditoriaRoute: typeof AuthenticatedAdminAuditoriaRoute
   AuthenticatedAdminAvisosRoute: typeof AuthenticatedAdminAvisosRoute
   AuthenticatedAdminCalendarioRoute: typeof AuthenticatedAdminCalendarioRoute
   AuthenticatedAdminCapacitacionesRoute: typeof AuthenticatedAdminCapacitacionesRoute
   AuthenticatedAdminCategoriasRoute: typeof AuthenticatedAdminCategoriasRoute
   AuthenticatedAdminCentroRoute: typeof AuthenticatedAdminCentroRoute
+  AuthenticatedAdminConfiguracionRoute: typeof AuthenticatedAdminConfiguracionRoute
   AuthenticatedAdminGaleriaRoute: typeof AuthenticatedAdminGaleriaRoute
   AuthenticatedAdminInstitucionalRoute: typeof AuthenticatedAdminInstitucionalRoute
   AuthenticatedAdminMateriasRoute: typeof AuthenticatedAdminMateriasRoute
   AuthenticatedAdminMensajesRoute: typeof AuthenticatedAdminMensajesRoute
+  AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAuditoriaRoute: AuthenticatedAdminAuditoriaRoute,
   AuthenticatedAdminAvisosRoute: AuthenticatedAdminAvisosRoute,
   AuthenticatedAdminCalendarioRoute: AuthenticatedAdminCalendarioRoute,
   AuthenticatedAdminCapacitacionesRoute: AuthenticatedAdminCapacitacionesRoute,
   AuthenticatedAdminCategoriasRoute: AuthenticatedAdminCategoriasRoute,
   AuthenticatedAdminCentroRoute: AuthenticatedAdminCentroRoute,
+  AuthenticatedAdminConfiguracionRoute: AuthenticatedAdminConfiguracionRoute,
   AuthenticatedAdminGaleriaRoute: AuthenticatedAdminGaleriaRoute,
   AuthenticatedAdminInstitucionalRoute: AuthenticatedAdminInstitucionalRoute,
   AuthenticatedAdminMateriasRoute: AuthenticatedAdminMateriasRoute,
   AuthenticatedAdminMensajesRoute: AuthenticatedAdminMensajesRoute,
+  AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 

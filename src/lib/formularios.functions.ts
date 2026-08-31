@@ -52,7 +52,14 @@ export const enviarContacto = createServerFn({ method: "POST" })
         mensaje: "Recibimos varios mensajes desde esta dirección. Probá nuevamente en unos minutos.",
       };
     }
-    console.info("[contacto] mensaje recibido", { asunto: data.asunto });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("mensajes_contacto").insert({
+      nombre: data.nombre,
+      email: data.email,
+      asunto: data.asunto,
+      mensaje: data.mensaje,
+    });
+    if (error) throw new Error("No pudimos registrar tu mensaje. Probá nuevamente.");
     return {
       ok: true as const,
       mensaje:
@@ -69,7 +76,14 @@ export const enviarPropuesta = createServerFn({ method: "POST" })
         mensaje: "Ya enviaste varias propuestas seguidas. Esperá unos minutos antes de reintentar.",
       };
     }
-    console.info("[centro de estudiantes] propuesta recibida", { curso: data.curso });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("propuestas_centro").insert({
+      nombre: data.nombre,
+      email: data.email,
+      curso: data.curso,
+      propuesta: data.mensaje,
+    });
+    if (error) throw new Error("No pudimos registrar tu propuesta. Probá nuevamente.");
     return {
       ok: true as const,
       mensaje: "Tu propuesta llegó al Centro de Estudiantes. ¡Gracias por participar!",

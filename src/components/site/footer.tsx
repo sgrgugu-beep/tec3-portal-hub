@@ -13,6 +13,7 @@ const enlacesRapidos = [
   { to: "/centro-de-estudiantes", label: "Centro de Estudiantes" },
   { to: "/galeria", label: "Galería" },
   { to: "/contacto", label: "Contacto" },
+  { to: "/admin", label: "Acceso administradores" },
 ] as const;
 
 export function Footer() {
