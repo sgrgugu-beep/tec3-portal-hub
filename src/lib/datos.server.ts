@@ -74,7 +74,7 @@ export async function obtenerAvisos(): Promise<Aviso[]> {
     fecha: a.fecha,
     destacado: a.destacado,
     estado: "publicado",
-    imagen: a.imagen_url ?? undefined,
+    ...(a.imagen_url ? { imagen: a.imagen_url } : {}),
   }));
 }
 
@@ -127,7 +127,9 @@ export async function obtenerMaterias(): Promise<Materia[]> {
     nombre: m.nombre,
     anio: m.anio,
     ciclo: m.ciclo as Materia["ciclo"],
-    especialidad: (m.especialidad_slug ?? undefined) as EspecialidadSlug | undefined,
+    ...(m.especialidad_slug
+      ? { especialidad: m.especialidad_slug as EspecialidadSlug }
+      : {}),
     cargaHoraria: m.carga_horaria ?? "",
     descripcion: m.descripcion,
   }));
