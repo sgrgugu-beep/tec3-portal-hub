@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { X } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { albumes } from "@/lib/contenido";
+import { consultaAlbumes } from "@/lib/consultas";
 
 const titulo = "Galería de fotos — Técnica 3 Avellaneda";
 const descripcion =
@@ -24,16 +25,20 @@ export const Route = createFileRoute("/galeria")({
     ],
     links: [{ rel: "canonical", href: "/galeria" }],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(consultaAlbumes),
+  errorComponent: ErrorContenido,
   component: Galeria,
 });
 
-const categoriasGaleria = Array.from(new Set(albumes.map((a) => a.categoria)));
-
 function Galeria() {
+  const { data: albumes } = useSuspenseQuery(consultaAlbumes);
+  const categoriasGaleria = Array.from(new Set(albumes.map((a) => a.categoria)));
+
   const [categoria, setCategoria] = useState("todas");
   const [foto, setFoto] = useState<{ src: string; alt: string } | null>(null);
 
   const listado = albumes.filter((a) => categoria === "todas" || a.categoria === categoria);
+
 
   return (
     <>

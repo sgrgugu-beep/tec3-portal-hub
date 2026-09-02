@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 
@@ -11,7 +12,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { buscar, type ResultadoBusqueda } from "@/lib/contenido";
+import { consultaBusqueda } from "@/lib/consultas";
+import type { ResultadoBusqueda } from "@/lib/contenido";
 
 const ORDEN: ResultadoBusqueda["tipo"][] = [
   "Avisos",
@@ -23,6 +25,7 @@ const ORDEN: ResultadoBusqueda["tipo"][] = [
 export function BuscadorGlobal() {
   const [abierto, setAbierto] = useState(false);
   const [consulta, setConsulta] = useState("");
+  const [debounced, setDebounced] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,13 +39,20 @@ export function BuscadorGlobal() {
     return () => window.removeEventListener("keydown", atajo);
   }, []);
 
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(consulta), 250);
+    return () => clearTimeout(id);
+  }, [consulta]);
+
+  const { data, isFetching } = useQuery(consultaBusqueda(debounced));
+
   const agrupados = useMemo(() => {
-    const resultados = buscar(consulta);
+    const resultados = data ?? [];
     return ORDEN.map((tipo) => ({
       tipo,
       items: resultados.filter((r) => r.tipo === tipo).slice(0, 5),
     })).filter((g) => g.items.length > 0);
-  }, [consulta]);
+  }, [data]);
 
   return (
     <>
@@ -66,7 +76,9 @@ export function BuscadorGlobal() {
           <CommandEmpty>
             {consulta.trim().length < 2
               ? "Escribí al menos dos caracteres para buscar."
-              : "No encontramos resultados para esa búsqueda."}
+              : isFetching
+                ? "Buscando…"
+                : "No encontramos resultados para esa búsqueda."}
           </CommandEmpty>
           {agrupados.map((grupo) => (
             <CommandGroup key={grupo.tipo} heading={grupo.tipo}>
