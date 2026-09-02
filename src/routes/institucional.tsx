@@ -1,10 +1,13 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bus, Compass, MapPin } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { MapaEscuela } from "@/components/site/mapa-escuela";
 import { Button } from "@/components/ui/button";
-import { autoridades, escuela, especialidades } from "@/lib/contenido";
+import { consultaAutoridades, consultaEspecialidades } from "@/lib/consultas";
+import { escuela } from "@/lib/contenido";
 
 const titulo = "Institucional — Técnica 3 Avellaneda";
 const descripcion =
@@ -23,10 +26,21 @@ export const Route = createFileRoute("/institucional")({
     ],
     links: [{ rel: "canonical", href: "/institucional" }],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaAutoridades),
+      context.queryClient.ensureQueryData(consultaEspecialidades),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: Institucional,
 });
 
 function Institucional() {
+  const { data: autoridades } = useSuspenseQuery(consultaAutoridades);
+  const { data: especialidades } = useSuspenseQuery(consultaEspecialidades);
+
+
   return (
     <>
       <EncabezadoPagina

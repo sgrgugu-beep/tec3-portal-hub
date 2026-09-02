@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Megaphone, Send, Users } from "lucide-react";
 import { toast } from "sonner";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { avisosPublicados, formatearFecha, integrantesCentro } from "@/lib/contenido";
+import { consultaAvisos, consultaIntegrantes } from "@/lib/consultas";
+import { formatearFecha } from "@/lib/contenido";
 import { enviarPropuesta } from "@/lib/formularios.functions";
 
 const titulo = "Centro de Estudiantes — Técnica 3 Avellaneda";
@@ -30,13 +33,23 @@ export const Route = createFileRoute("/centro-de-estudiantes")({
     ],
     links: [{ rel: "canonical", href: "/centro-de-estudiantes" }],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaIntegrantes),
+      context.queryClient.ensureQueryData(consultaAvisos),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: CentroDeEstudiantes,
 });
 
 function CentroDeEstudiantes() {
+  const { data: integrantesCentro } = useSuspenseQuery(consultaIntegrantes);
+  const { data: avisos } = useSuspenseQuery(consultaAvisos);
   const enviar = useServerFn(enviarPropuesta);
   const [enviando, setEnviando] = useState(false);
-  const anuncios = avisosPublicados().filter((a) => a.categoria === "centro-estudiantes");
+  const anuncios = avisos.filter((a) => a.categoria === "centro-estudiantes");
+
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
