@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock, Info } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { especialidades, materias, type EspecialidadSlug } from "@/lib/contenido";
+import { consultaEspecialidades, consultaMaterias } from "@/lib/consultas";
+import type { EspecialidadSlug } from "@/lib/contenido";
 
 const titulo = "Materias y estructura curricular — Técnica 3 Avellaneda";
 const descripcion =
@@ -24,10 +27,20 @@ export const Route = createFileRoute("/materias")({
     ],
     links: [{ rel: "canonical", href: "/materias" }],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaMaterias),
+      context.queryClient.ensureQueryData(consultaEspecialidades),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: Materias,
 });
 
 function Materias() {
+  const { data: materias } = useSuspenseQuery(consultaMaterias);
+  const { data: especialidades } = useSuspenseQuery(consultaEspecialidades);
+
   const [ciclo, setCiclo] = useState<"basico" | "superior">("basico");
   const [anio, setAnio] = useState(1);
   const [especialidad, setEspecialidad] = useState<EspecialidadSlug>("informatica");
@@ -41,6 +54,7 @@ function Materias() {
       m.anio === anioActual &&
       (ciclo === "basico" || m.especialidad === especialidad),
   );
+
 
   return (
     <>

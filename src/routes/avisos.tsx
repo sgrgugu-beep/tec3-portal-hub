@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { avisosPublicados, categorias, formatearFecha, nombreCategoria } from "@/lib/contenido";
+import { consultaAvisos, consultaCategorias } from "@/lib/consultas";
+import { formatearFecha } from "@/lib/contenido";
 
 const titulo = "Avisos y novedades — Técnica 3 Avellaneda";
 const descripcion =
@@ -24,15 +27,25 @@ export const Route = createFileRoute("/avisos")({
     ],
     links: [{ rel: "canonical", href: "/avisos" }],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaAvisos),
+      context.queryClient.ensureQueryData(consultaCategorias),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: Avisos,
 });
 
-const categoriasAvisos = categorias.filter((c) => c.ambito === "avisos");
-
 function Avisos() {
+  const { data: todos } = useSuspenseQuery(consultaAvisos);
+  const { data: categorias } = useSuspenseQuery(consultaCategorias);
+  const categoriasAvisos = categorias.filter((c) => c.ambito === "avisos");
+  const nombreCategoria = (slug: string) =>
+    categorias.find((c) => c.slug === slug)?.nombre ?? slug;
+
   const [categoria, setCategoria] = useState<string>("todas");
   const [anio, setAnio] = useState<string>("todos");
-  const todos = avisosPublicados();
 
   const anios = useMemo(
     () => Array.from(new Set(todos.map((a) => a.fecha.slice(0, 4)))).sort().reverse(),
@@ -44,6 +57,7 @@ function Avisos() {
       (categoria === "todas" || a.categoria === categoria) &&
       (anio === "todos" || a.fecha.startsWith(anio)),
   );
+
 
   return (
     <>

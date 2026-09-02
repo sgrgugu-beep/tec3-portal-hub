@@ -1,20 +1,25 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, GraduationCap, Mail, Megaphone } from "lucide-react";
 
 import heroEscuela from "@/assets/hero-escuela.jpg";
 import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  avisosDestacados,
+  consultaAvisos,
+  consultaCategorias,
+  consultaEspecialidades,
+  consultaEventos,
+} from "@/lib/consultas";
+import {
   escuela,
-  especialidades,
   formatearFecha,
   formatearFechaCorta,
-  nombreCategoria,
   numerosInstitucionales,
-  proximosEventos,
 } from "@/lib/contenido";
+
 
 const titulo = "Técnica 3 Avellaneda — E.E.S.T. N° 3 “República de México”";
 const descripcion =
@@ -61,12 +66,31 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaAvisos),
+      context.queryClient.ensureQueryData(consultaEventos),
+      context.queryClient.ensureQueryData(consultaEspecialidades),
+      context.queryClient.ensureQueryData(consultaCategorias),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: Inicio,
 });
 
 function Inicio() {
-  const destacados = avisosDestacados().slice(0, 3);
-  const eventos = proximosEventos(4);
+  const { data: avisos } = useSuspenseQuery(consultaAvisos);
+  const { data: todosLosEventos } = useSuspenseQuery(consultaEventos);
+  const { data: especialidades } = useSuspenseQuery(consultaEspecialidades);
+  const { data: categorias } = useSuspenseQuery(consultaCategorias);
+
+  const nombreCategoria = (slug: string) =>
+    categorias.find((c) => c.slug === slug)?.nombre ?? slug;
+  const destacados = avisos.filter((a) => a.destacado).slice(0, 3);
+  const eventos = [...todosLosEventos]
+    .sort((a, b) => a.fecha.localeCompare(b.fecha))
+    .slice(0, 4);
+
 
   return (
     <>
