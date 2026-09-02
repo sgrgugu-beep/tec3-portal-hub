@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, Clock, GraduationCap, Users } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { capacitaciones, formatearFecha } from "@/lib/contenido";
+import { consultaCapacitaciones } from "@/lib/consultas";
+import { formatearFecha } from "@/lib/contenido";
 
 const titulo = "Capacitaciones — Técnica 3 Avellaneda";
 const descripcion =
@@ -24,19 +27,24 @@ export const Route = createFileRoute("/capacitaciones")({
     ],
     links: [{ rel: "canonical", href: "/capacitaciones" }],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(consultaCapacitaciones),
+  errorComponent: ErrorContenido,
   component: Capacitaciones,
 });
 
 const estados = ["proxima", "en curso", "finalizada"] as const;
-const areas = Array.from(new Set(capacitaciones.map((c) => c.area)));
 
 function Capacitaciones() {
+  const { data: capacitaciones } = useSuspenseQuery(consultaCapacitaciones);
+  const areas = Array.from(new Set(capacitaciones.map((c) => c.area)));
+
   const [estado, setEstado] = useState<string>("todos");
   const [area, setArea] = useState<string>("todas");
 
   const listado = capacitaciones.filter(
     (c) => (estado === "todos" || c.estado === estado) && (area === "todas" || c.area === area),
   );
+
 
   return (
     <>

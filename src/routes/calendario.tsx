@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, ChevronLeft, ChevronRight, Clock, List, MapPin } from "lucide-react";
 
 import { EncabezadoPagina } from "@/components/site/encabezado-pagina";
+import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { categorias, eventos, formatearFecha, nombreCategoria } from "@/lib/contenido";
+import { consultaCategorias, consultaEventos } from "@/lib/consultas";
+import { formatearFecha } from "@/lib/contenido";
 
 const titulo = "Calendario de actividades — Técnica 3 Avellaneda";
 const descripcion =
@@ -24,13 +27,25 @@ export const Route = createFileRoute("/calendario")({
     ],
     links: [{ rel: "canonical", href: "/calendario" }],
   }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(consultaEventos),
+      context.queryClient.ensureQueryData(consultaCategorias),
+    ]);
+  },
+  errorComponent: ErrorContenido,
   component: Calendario,
 });
 
-const tiposCalendario = categorias.filter((c) => c.ambito === "calendario");
 const DIAS = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"];
 
 function Calendario() {
+  const { data: eventos } = useSuspenseQuery(consultaEventos);
+  const { data: categorias } = useSuspenseQuery(consultaCategorias);
+  const tiposCalendario = categorias.filter((c) => c.ambito === "calendario");
+  const nombreCategoria = (slug: string) =>
+    categorias.find((c) => c.slug === slug)?.nombre ?? slug;
+
   const [vista, setVista] = useState<"lista" | "calendario">("lista");
   const [tipo, setTipo] = useState("todos");
   const primerEvento = [...eventos].sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
@@ -44,8 +59,9 @@ function Calendario() {
       [...eventos]
         .filter((e) => tipo === "todos" || e.tipo === tipo)
         .sort((a, b) => a.fecha.localeCompare(b.fecha)),
-    [tipo],
+    [eventos, tipo],
   );
+
 
   const celdas = useMemo(() => {
     const inicio = new Date(mes.getFullYear(), mes.getMonth(), 1);
