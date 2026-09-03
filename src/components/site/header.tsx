@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 
 import { Button } from "@/components/ui/button";
