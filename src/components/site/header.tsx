@@ -101,6 +101,15 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                to="/admin"
+                onClick={() => setAbierto(false)}
+                className="block rounded-md px-3 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-secondary"
+              >
+                Acceso administradores
+              </Link>
+            </li>
           </ul>
         </nav>
       )}
