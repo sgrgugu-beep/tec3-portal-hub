@@ -66,6 +66,11 @@ export function Header() {
         <div className="flex items-center gap-2">
           <BuscadorGlobal />
           <ThemeToggle />
+          <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+            <Link to="/admin" aria-label="Acceso al panel de administración">
+              <LogIn className="mr-2 size-4" aria-hidden="true" /> Acceso
+            </Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
