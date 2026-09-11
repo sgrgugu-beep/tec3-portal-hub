@@ -94,24 +94,24 @@ function Inicio() {
 
   return (
     <>
-      <section className="technical-grid relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-primary text-primary-foreground">
-        <div className="absolute inset-y-0 left-[8%] w-px bg-primary-foreground/10" aria-hidden="true" />
-        <div className="absolute inset-y-0 right-[8%] w-px bg-primary-foreground/10" aria-hidden="true" />
-        <div className="contenedor relative grid min-h-[calc(100svh-4rem)] items-center gap-12 py-16 lg:grid-cols-12 lg:py-20">
+      <section className="technical-grid relative isolate overflow-hidden bg-institutional text-institutional-foreground lg:h-[calc(100svh-4rem)] lg:min-h-[44rem] lg:max-h-[54rem]">
+        <div className="absolute inset-y-0 left-[8%] w-px bg-institutional-foreground/10" aria-hidden="true" />
+        <div className="absolute inset-y-0 right-[8%] w-px bg-institutional-foreground/10" aria-hidden="true" />
+        <div className="contenedor relative grid items-center gap-12 py-12 lg:h-full lg:grid-cols-12 lg:pb-36 lg:pt-16">
           <div className="relative z-10 lg:col-span-7 lg:pb-16">
             <div className="mb-9 flex items-center gap-4">
               <img src={logoEscuela.url} alt="Escudo de la E.E.S.T. N° 3" className="size-14 object-contain" width={56} height={56} />
               <div>
-                <p className="technical-label text-accent">Educación técnica pública</p>
-                <p className="mt-1 text-sm text-primary-foreground/60">Wilde · Avellaneda</p>
+                <p className="technical-label text-institutional-accent">Educación técnica pública</p>
+                <p className="mt-1 text-sm text-institutional-foreground/60">Wilde · Avellaneda</p>
               </div>
             </div>
             <h1 className="max-w-4xl font-display text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
               Formación técnica<br />
-              <span className="text-accent">con proyección real.</span>
+              <span className="text-institutional-accent">con proyección real.</span>
             </h1>
-            <div className="mt-10 grid max-w-2xl gap-8 border-l border-primary-foreground/20 pl-6 sm:grid-cols-[1fr_auto] sm:items-end">
-              <p className="text-base leading-relaxed text-primary-foreground/70">
+            <div className="mt-8 grid max-w-2xl gap-6 border-l border-institutional-foreground/20 pl-5 sm:grid-cols-[1fr_auto] sm:items-end lg:mt-10 lg:gap-8 lg:pl-6">
+              <p className="text-base leading-relaxed text-institutional-foreground/70">
                 {escuela.nombre}. Proyectos reales, talleres equipados y una comunidad que acompaña cada trayectoria.
               </p>
               <Button asChild size="lg" variant="secondary" className="group rounded-none">
@@ -121,24 +121,24 @@ function Inicio() {
           </div>
 
           <div className="relative mx-auto w-[82%] max-w-md lg:col-span-5 lg:w-full">
-            <div className="absolute -inset-4 border border-primary-foreground/10" aria-hidden="true" />
-            <div className="relative aspect-[3/4] overflow-hidden bg-surface">
+            <div className="absolute -inset-3 border border-institutional-foreground/10 sm:-inset-4" aria-hidden="true" />
+            <div className="relative aspect-[4/3] overflow-hidden bg-surface sm:aspect-[3/2] lg:aspect-[3/4]">
               <img src={heroEscuela} alt="Estudiantes trabajando con instrumental electrónico en el taller" width={1600} height={912} className="hero-image-drift size-full object-cover grayscale transition-[filter] duration-700 hover:grayscale-0" />
-              <div className="absolute inset-0 bg-primary/20" aria-hidden="true" />
-              <div className="scan-line absolute inset-x-0 top-0 h-px bg-accent/80 shadow-[0_0_18px_var(--color-accent)]" aria-hidden="true" />
+              <div className="absolute inset-0 bg-institutional/20" aria-hidden="true" />
+              <div className="scan-line absolute inset-x-0 top-0 h-px bg-institutional-accent/80 shadow-[0_0_18px_var(--color-institutional-accent)]" aria-hidden="true" />
             </div>
-            <div className="absolute -bottom-8 -right-5 grid size-32 place-items-center border border-primary-foreground/15 bg-primary p-4 text-center sm:-right-8">
-              <div><p className="font-display text-3xl font-semibold">3</p><p className="technical-label mt-1 text-primary-foreground/55">Especialidades</p></div>
+            <div className="absolute -bottom-6 -right-3 grid size-24 place-items-center border border-institutional-foreground/15 bg-institutional p-3 text-center sm:-bottom-8 sm:-right-8 sm:size-32 sm:p-4">
+              <div><p className="font-display text-3xl font-semibold">3</p><p className="technical-label mt-1 text-institutional-foreground/55">Especialidades</p></div>
             </div>
           </div>
 
           <div className="lg:absolute lg:bottom-7 lg:left-5 lg:right-5">
-            <ul className="grid grid-cols-2 gap-px border-t border-primary-foreground/15 pt-5 sm:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-px border-t border-institutional-foreground/15 pt-4 sm:grid-cols-4 lg:pt-5">
               {numerosInstitucionales.map((n, index) => (
-                <li key={n.etiqueta} className="border-primary-foreground/15 py-3 pr-3 sm:border-r">
-                  <span className="technical-label text-accent">0{index + 1}</span>
+                <li key={n.etiqueta} className="border-institutional-foreground/15 py-3 pr-3 sm:border-r">
+                  <span className="technical-label text-institutional-accent">0{index + 1}</span>
                   <p className="mt-2 font-display text-xl font-semibold">{n.valor}</p>
-                  <p className="mt-1 text-xs text-primary-foreground/55">{n.etiqueta}</p>
+                  <p className="mt-1 text-xs text-institutional-foreground/55">{n.etiqueta}</p>
                 </li>
               ))}
             </ul>
@@ -180,10 +180,10 @@ function Inicio() {
           </Reveal>
           <ul className="mt-14 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {eventos.map((e, index) => { const { dia, mes } = formatearFechaCorta(e.fecha); return (
-              <li key={e.slug} className="group relative min-h-72 bg-background p-7 transition-colors hover:bg-primary hover:text-primary-foreground">
+              <li key={e.slug} className="group relative min-h-72 bg-background p-7 transition-colors hover:bg-institutional hover:text-institutional-foreground">
                 <Reveal delay={index * 80} className="flex h-full flex-col">
-                  <div className="flex items-start justify-between"><CalendarDays className="size-5 text-accent" /><span className="technical-label text-muted-foreground group-hover:text-primary-foreground/55">0{index + 1}</span></div>
-                  <div className="mt-auto"><p className="font-display text-5xl font-semibold">{dia}</p><p className="technical-label mt-1 text-accent">{mes}</p><h3 className="mt-6 font-display text-lg font-semibold">{e.titulo}</h3><p className="mt-2 text-sm text-muted-foreground group-hover:text-primary-foreground/65">{e.horario} · {e.lugar}</p></div>
+                  <div className="flex items-start justify-between"><CalendarDays className="size-5 text-accent" /><span className="technical-label text-muted-foreground group-hover:text-institutional-foreground/55">0{index + 1}</span></div>
+                  <div className="mt-auto"><p className="font-display text-5xl font-semibold">{dia}</p><p className="technical-label mt-1 text-accent">{mes}</p><h3 className="mt-6 font-display text-lg font-semibold">{e.titulo}</h3><p className="mt-2 text-sm text-muted-foreground group-hover:text-institutional-foreground/65">{e.horario} · {e.lugar}</p></div>
                 </Reveal>
               </li> ); })}
           </ul>
@@ -202,9 +202,9 @@ function Inicio() {
             {especialidades.map((e, index) => (
               <li key={e.slug} className={index === 1 ? "lg:ml-[12%]" : index === 2 ? "lg:ml-[24%]" : ""}>
                 <Reveal delay={index * 100}>
-                  <Link to="/materias" className="group grid max-w-4xl gap-5 border-l-2 border-primary bg-surface p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent hover:bg-primary hover:text-primary-foreground sm:grid-cols-[4rem_1fr_auto] sm:items-center">
+                  <Link to="/materias" className="group grid max-w-4xl gap-5 border-l-2 border-primary bg-surface p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent hover:bg-institutional hover:text-institutional-foreground sm:grid-cols-[4rem_1fr_auto] sm:items-center">
                     <span className="technical-label text-accent">0{index + 1}</span>
-                    <div><h3 className="font-display text-xl font-semibold">{e.nombre}</h3><p className="mt-2 text-sm text-muted-foreground group-hover:text-primary-foreground/65">{e.resumen}</p></div>
+                    <div><h3 className="font-display text-xl font-semibold">{e.nombre}</h3><p className="mt-2 text-sm text-muted-foreground group-hover:text-institutional-foreground/65">{e.resumen}</p></div>
                     <ArrowDownRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:translate-y-1" aria-hidden="true" />
                   </Link>
                 </Reveal>
@@ -214,10 +214,10 @@ function Inicio() {
         </div>
       </section>
 
-      <section className="technical-grid bg-primary py-20 text-primary-foreground">
+      <section className="technical-grid bg-institutional py-20 text-institutional-foreground">
         <Reveal className="contenedor grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8"><p className="technical-label text-accent">Próximo paso</p><h2 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Conozcan la escuela donde una vocación puede convertirse en oficio y futuro.</h2></div>
-          <div className="lg:col-span-4"><p className="mb-6 text-sm leading-relaxed text-primary-foreground/65">Coordinamos entrevistas informativas para familias y futuros estudiantes.</p><Button asChild size="lg" variant="secondary" className="w-full rounded-none"><Link to="/contacto"><Mail className="mr-2 size-4" /> Escribinos</Link></Button></div>
+          <div className="lg:col-span-8"><p className="technical-label text-institutional-accent">Próximo paso</p><h2 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Conozcan la escuela donde una vocación puede convertirse en oficio y futuro.</h2></div>
+          <div className="lg:col-span-4"><p className="mb-6 text-sm leading-relaxed text-institutional-foreground/65">Coordinamos entrevistas informativas para familias y futuros estudiantes.</p><Button asChild size="lg" variant="secondary" className="w-full rounded-none"><Link to="/contacto"><Mail className="mr-2 size-4" /> Escribinos</Link></Button></div>
         </Reveal>
       </section>
     </>
