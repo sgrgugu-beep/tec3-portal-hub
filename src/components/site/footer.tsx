@@ -18,7 +18,7 @@ const enlacesRapidos = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-border bg-surface text-surface-foreground">
+    <footer className="border-t border-border bg-surface text-surface-foreground">
       <div className="contenedor grid gap-10 py-14 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-3">

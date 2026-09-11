@@ -31,18 +31,21 @@ export function Header() {
       >
         Ir al contenido principal
       </a>
-      <div className="contenedor flex h-16 items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3" aria-label={`Inicio — ${escuela.nombreCorto}`}>
+      <div className="contenedor flex h-16 items-center justify-between gap-2 sm:gap-4">
+        <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`Inicio — ${escuela.nombreCorto}`}>
           <img
             src={logoEscuela.url}
             alt="Escudo de la E.E.S.T. N° 3 República de México, Wilde, Avellaneda"
-            className="size-10 shrink-0 rounded-md object-contain"
+            className="size-9 shrink-0 rounded-md object-contain sm:size-10"
             width={40}
             height={40}
           />
-          <span className="leading-tight">
-            <span className="block font-display text-base font-semibold">Técnica 3 Avellaneda</span>
-            <span className="block text-xs text-muted-foreground">E.E.S.T. N° 3 "República de México"</span>
+          <span className="min-w-0 leading-tight">
+            <span className="block whitespace-nowrap font-display text-sm font-semibold sm:text-base">
+              <span className="sm:hidden">Técnica 3</span>
+              <span className="hidden sm:inline">Técnica 3 Avellaneda</span>
+            </span>
+            <span className="hidden text-xs text-muted-foreground md:block">E.E.S.T. N° 3 "República de México"</span>
           </span>
         </Link>
 
@@ -63,7 +66,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           <BuscadorGlobal />
           <ThemeToggle />
           <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
