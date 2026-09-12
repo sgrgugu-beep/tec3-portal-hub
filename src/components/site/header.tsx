@@ -49,7 +49,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Navegación principal" className="hidden xl:block">
+        <nav aria-label="Navegación principal" className="hidden 2xl:block">
           <ul className="flex items-center gap-1">
             {navegacion.map((item) => (
               <li key={item.to}>
@@ -77,7 +77,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="xl:hidden"
+            className="2xl:hidden"
             aria-expanded={abierto}
             aria-controls="menu-movil"
             aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
@@ -89,7 +89,7 @@ export function Header() {
       </div>
 
       {abierto && (
-        <nav id="menu-movil" aria-label="Navegación móvil" className="border-t border-border bg-background xl:hidden">
+        <nav id="menu-movil" aria-label="Navegación móvil" className="border-t border-border bg-background 2xl:hidden">
           <ul className="contenedor grid gap-1 py-3">
             {navegacion.map((item) => (
               <li key={item.to}>

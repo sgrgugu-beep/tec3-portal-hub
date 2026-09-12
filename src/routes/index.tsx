@@ -123,7 +123,7 @@ function Inicio() {
               <img src={heroEscuela} alt="Estudiantes trabajando con instrumental electrónico en el taller" width={1600} height={912} className="hero-image-drift size-full object-cover grayscale transition-[filter] duration-700 hover:grayscale-0" />
               <div className="absolute inset-0 bg-institutional/20" aria-hidden="true" />
               <div className="absolute bottom-0 right-0 grid size-24 place-items-center border-l border-t border-institutional-foreground/20 bg-institutional/95 p-3 text-center sm:size-28">
-                <div><p className="font-display text-3xl font-semibold">3</p><p className="technical-label mt-1 text-institutional-foreground/55">Especialidades</p></div>
+                <div><p className="font-display text-3xl font-semibold">3</p><p className="technical-label mt-1 text-institutional-foreground/55">Áreas técnicas</p></div>
               </div>
             </div>
           </div>
