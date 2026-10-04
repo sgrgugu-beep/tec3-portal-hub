@@ -2,12 +2,12 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDownRight, ArrowRight, CalendarDays, Mail, MoveRight } from "lucide-react";
 
-import aulaInformatica from "@/assets/aula-informatica.png.asset.json";
-import actividadAjedrez from "@/assets/actividad-ajedrez.png.asset.json";
-import comunidadEstudiantil from "@/assets/comunidad-estudiantil.png.asset.json";
-import laboratorioAlimentos from "@/assets/laboratorio-alimentos.png.asset.json";
+import aulaInformatica from "@/assets/aula-informatica.webp.asset.json";
+import actividadAjedrez from "@/assets/actividad-ajedrez.webp.asset.json";
+import comunidadEstudiantil from "@/assets/comunidad-estudiantil.webp.asset.json";
+import laboratorioAlimentos from "@/assets/laboratorio-alimentos.webp.asset.json";
 import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
-import proyectoElectronica from "@/assets/proyecto-electronica.png.asset.json";
+import proyectoElectronica from "@/assets/proyecto-electronica.webp.asset.json";
 import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
@@ -95,23 +95,23 @@ function Inicio() {
     .sort((a, b) => a.fecha.localeCompare(b.fecha))
     .slice(0, 4);
 
-  const fotosEspecialidades = [
-    {
+  const fotosEspecialidades: Record<string, { src: string; alt: string; color: string }> = {
+    informatica: {
       src: aulaInformatica.url,
       alt: "Estudiantes trabajando en el aula de informática",
       color: "bg-chart-1",
     },
-    {
+    electronica: {
       src: proyectoElectronica.url,
       alt: "Estudiantes presentando un proyecto de electrónica",
       color: "bg-chart-2",
     },
-    {
+    alimentos: {
       src: laboratorioAlimentos.url,
       alt: "Estudiantes y docentes en el laboratorio de alimentos",
       color: "bg-chart-4",
     },
-  ];
+  };
 
 
   return (
@@ -147,14 +147,14 @@ function Inicio() {
 
           <div className="relative mx-auto w-full max-w-lg lg:col-span-5">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface shadow-elevado sm:aspect-[3/2] lg:aspect-[4/5]">
-              <img src={comunidadEstudiantil.url} alt="Comunidad estudiantil de la E.E.S.T. N° 3" width={898} height={674} fetchPriority="high" className="hero-image-drift size-full object-cover" />
+              <img src={comunidadEstudiantil.url} alt="Comunidad estudiantil de la E.E.S.T. N° 3" width={809} height={626} fetchPriority="high" className="hero-image-drift size-full object-cover" />
               <div className="absolute inset-0 bg-institutional/10" aria-hidden="true" />
               <div className="absolute bottom-4 right-4 grid size-24 place-items-center rounded-xl bg-institutional/95 p-3 text-center shadow-elevado sm:size-28">
                 <div><p className="font-display text-3xl font-semibold">3</p><p className="technical-label mt-1 text-institutional-foreground/55">Áreas técnicas</p></div>
               </div>
             </div>
             <div className="absolute -bottom-6 -left-4 hidden w-40 overflow-hidden rounded-xl bg-surface p-2 shadow-elevado sm:block lg:-left-10">
-              <img src={actividadAjedrez.url} alt="Actividad de ajedrez entre estudiantes" width={898} height={674} className="aspect-[4/3] w-full rounded-lg object-cover" />
+              <img src={actividadAjedrez.url} alt="Actividad de ajedrez entre estudiantes" width={809} height={626} loading="lazy" className="aspect-[4/3] w-full rounded-lg object-cover" />
             </div>
           </div>
 
@@ -225,13 +225,14 @@ function Inicio() {
             <p className="mt-5 max-w-2xl text-muted-foreground">Del ciclo básico común a una formación técnica especializada que combina teoría, práctica y proyectos.</p>
           </Reveal>
           <ul className="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16">
-            {especialidades.map((e, index) => (
-              <li key={e.slug}>
+            {especialidades.map((e, index) => {
+              const foto = fotosEspecialidades[e.slug] ?? fotosEspecialidades["informatica"];
+              return <li key={e.slug}>
                 <Reveal delay={index * 100}>
                   <Link to="/materias" className="group block min-w-0 overflow-hidden rounded-2xl bg-card shadow-institucional transition-all duration-500 hover:-translate-y-2 hover:shadow-elevado">
                     <div className="relative aspect-[4/3] overflow-hidden">
-                      <img src={fotosEspecialidades[index % fotosEspecialidades.length].src} alt={fotosEspecialidades[index % fotosEspecialidades.length].alt} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                      <span className={`absolute left-4 top-4 size-3 rounded-full ${fotosEspecialidades[index % fotosEspecialidades.length].color}`} aria-hidden="true" />
+                      <img src={foto?.src} alt={foto?.alt ?? e.nombre} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <span className={`absolute left-4 top-4 size-3 rounded-full ${foto?.color ?? "bg-accent"}`} aria-hidden="true" />
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between gap-4"><span className="technical-label text-accent">0{index + 1}</span><ArrowDownRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:translate-y-1" aria-hidden="true" /></div>
@@ -240,8 +241,8 @@ function Inicio() {
                     </div>
                   </Link>
                 </Reveal>
-              </li>
-            ))}
+              </li>;
+            })}
           </ul>
         </div>
       </section>

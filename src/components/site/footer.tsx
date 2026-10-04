@@ -20,7 +20,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-surface text-surface-foreground">
       <div className="contenedor grid gap-10 py-14 md:grid-cols-3">
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-3">
             <img
               src={logoEscuela.url}
@@ -38,7 +38,7 @@ export function Footer() {
           </p>
         </div>
 
-        <nav aria-label="Enlaces rápidos">
+        <nav aria-label="Enlaces rápidos" className="min-w-0">
           <h2 className="font-display text-base font-semibold">Enlaces rápidos</h2>
           <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">
             {enlacesRapidos.map((e) => (
@@ -51,7 +51,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div>
+        <div className="min-w-0">
           <h2 className="font-display text-base font-semibold">Contacto</h2>
           <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
@@ -68,7 +68,7 @@ export function Footer() {
             </li>
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-              <a href={`mailto:${escuela.email}`} className="hover:text-primary">
+               <a href={`mailto:${escuela.email}`} className="min-w-0 break-all hover:text-primary">
                 {escuela.email}
               </a>
             </li>
