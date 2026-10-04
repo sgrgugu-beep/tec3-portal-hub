@@ -226,7 +226,7 @@ function Inicio() {
           </Reveal>
           <ul className="mt-12 grid gap-6 md:grid-cols-3 lg:mt-16">
             {especialidades.map((e, index) => {
-              const foto = fotosEspecialidades[e.slug] ?? fotosEspecialidades.informatica;
+              const foto = fotosEspecialidades[e.slug] ?? fotosEspecialidades["informatica"];
               return <li key={e.slug}>
                 <Reveal delay={index * 100}>
                   <Link to="/materias" className="group block min-w-0 overflow-hidden rounded-2xl bg-card shadow-institucional transition-all duration-500 hover:-translate-y-2 hover:shadow-elevado">
