@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -16,12 +17,13 @@ import { Footer } from "@/components/site/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { ExperienciaScroll, TransicionPagina } from "@/components/site/experiencia";
 import { NoEncontrado } from "@/components/site/no-encontrado";
+import { Button } from "@/components/ui/button";
 
 function NotFoundComponent() {
   return <NoEncontrado />;
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -39,21 +41,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           Algo falló de nuestro lado. Podés reintentar o volver al inicio.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Reintentar
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-          >
-            Volver al inicio
-          </a>
+          </Button>
+          <Button asChild variant="outline"><Link to="/">Volver al inicio</Link></Button>
         </div>
       </div>
     </div>
