@@ -29,7 +29,7 @@ function AdminCapacitaciones() {
             { valor: "finalizada", etiqueta: "Finalizada" },
           ],
         },
-        { nombre: "area_slug", etiqueta: "Área (slug)", defecto: "general" },
+        { nombre: "area_slug", etiqueta: "Área", defecto: "General", categoria: "capacitacion", valorNombre: true },
         { nombre: "fecha_inicio", etiqueta: "Fecha de inicio", tipo: "fecha" },
         { nombre: "publicado", etiqueta: "Publicado", tipo: "booleano", defecto: true },
         { nombre: "dictada_por", etiqueta: "Dictada por", ocultarEnTabla: true },

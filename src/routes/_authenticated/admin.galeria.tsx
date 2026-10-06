@@ -20,8 +20,8 @@ function AdminGaleria() {
         ordenPor={{ columna: "fecha", asc: false }}
         campos={[
           { nombre: "titulo", etiqueta: "Título" },
-          { nombre: "slug", etiqueta: "Slug" },
-          { nombre: "categoria_slug", etiqueta: "Categoría (slug)", defecto: "proyectos" },
+          { nombre: "slug", etiqueta: "Slug", slugDesde: "titulo", ocultarEnTabla: true },
+          { nombre: "categoria_slug", etiqueta: "Categoría", defecto: "Proyectos", categoria: "galeria", valorNombre: true },
           { nombre: "fecha", etiqueta: "Fecha", tipo: "fecha" },
           { nombre: "publicado", etiqueta: "Publicado", tipo: "booleano", defecto: true },
           { nombre: "descripcion", etiqueta: "Descripción", tipo: "area", ocultarEnTabla: true },
