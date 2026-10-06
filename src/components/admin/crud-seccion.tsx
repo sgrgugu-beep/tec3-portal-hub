@@ -145,7 +145,7 @@ export function CrudSeccion({
     for (const campo of campos) {
       let valor = valores[campo.nombre];
       if (campo.tipo === "numero") valor = Number(valor) || 0;
-      if (valor === "" && campo.tipo === "fecha") valor = null;
+      if (valor === "" && campo.tipo === "fecha") valor = new Date().toISOString().slice(0, 10);
       if (typeof valor === "string") valor = valor.trim();
       if (campo.slugDesde && !valor) {
         const base = aSlug(String(valores[campo.slugDesde] ?? ""));
