@@ -19,7 +19,7 @@ function AdminCalendario() {
       campos={[
         { nombre: "titulo", etiqueta: "Título" },
         { nombre: "fecha", etiqueta: "Fecha", tipo: "fecha" },
-        { nombre: "tipo_slug", etiqueta: "Tipo (slug)", defecto: "acto" },
+        { nombre: "tipo_slug", etiqueta: "Tipo", defecto: "acto", categoria: "evento" },
         { nombre: "lugar", etiqueta: "Lugar" },
         { nombre: "publicado", etiqueta: "Publicado", tipo: "booleano", defecto: true },
         { nombre: "hora_inicio", etiqueta: "Hora de inicio", ocultarEnTabla: true },

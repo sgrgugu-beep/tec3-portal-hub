@@ -33,7 +33,23 @@ export type Campo = {
   defecto?: unknown;
   ayuda?: string;
   ocultarEnTabla?: boolean;
+  /** Carga las opciones desde la tabla de categorías. */
+  categoria?: "aviso" | "evento" | "capacitacion" | "galeria";
+  /** Usa el nombre de la categoría como valor (en vez del slug). */
+  valorNombre?: boolean;
+  /** Genera el valor automáticamente desde otro campo si queda vacío. */
+  slugDesde?: string;
 };
+
+function aSlug(texto: string) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
 
 type Fila = { id?: string } & Record<string, any>;
 
@@ -60,6 +76,27 @@ export function CrudSeccion({
   const [editando, setEditando] = useState<Fila | null>(null);
   const [valores, setValores] = useState<Fila>({});
   const [guardando, setGuardando] = useState(false);
+
+  const [opcionesCat, setOpcionesCat] = useState<Record<string, { valor: string; etiqueta: string }[]>>({});
+
+  useEffect(() => {
+    const tipos = campos.filter((c) => c.categoria);
+    if (tipos.length === 0) return;
+    void supabase
+      .from("categorias")
+      .select("tipo, slug, nombre")
+      .order("orden", { ascending: true })
+      .then(({ data }) => {
+        const mapa: Record<string, { valor: string; etiqueta: string }[]> = {};
+        for (const c of tipos) {
+          mapa[c.nombre] = (data ?? [])
+            .filter((d) => d.tipo === c.categoria)
+            .map((d) => ({ valor: c.valorNombre ? d.nombre : d.slug, etiqueta: d.nombre }));
+        }
+        setOpcionesCat(mapa);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabla]);
 
   const columnas = useMemo(
     () => campos.filter((c) => !c.ocultarEnTabla).slice(0, 5),
@@ -109,7 +146,18 @@ export function CrudSeccion({
       let valor = valores[campo.nombre];
       if (campo.tipo === "numero") valor = Number(valor) || 0;
       if (valor === "" && campo.tipo === "fecha") valor = null;
+      if (typeof valor === "string") valor = valor.trim();
+      if (campo.slugDesde && !valor) {
+        const base = aSlug(String(valores[campo.slugDesde] ?? ""));
+        valor = editando ? base : `${base}-${Date.now().toString(36).slice(-4)}`;
+      }
       payload[campo.nombre] = valor;
+    }
+    const primero = campos[0]!;
+    if (primero.tipo !== "numero" && !payload[primero.nombre]) {
+      setGuardando(false);
+      toast.error(`Completá el campo "${primero.etiqueta}".`);
+      return;
     }
     const consulta = editando
       ? (supabase as any).from(tabla).update(payload).eq("id", editando.id)
@@ -117,13 +165,17 @@ export function CrudSeccion({
     const { error } = await consulta;
     setGuardando(false);
     if (error) {
-      toast.error(error.message);
+      toast.error(
+        error.code === "23505"
+          ? "Ya existe un registro con ese identificador (slug). Cambialo o dejalo vacío."
+          : `No se pudo guardar: ${error.message}`,
+      );
       return;
     }
-    const { data: sesion } = await supabase.auth.getUser();
+    const { data: sesion } = await supabase.auth.getSession();
     await (supabase as any).from("auditoria").insert({
-      user_id: sesion.user?.id ?? null,
-      user_email: sesion.user?.email ?? "",
+      user_id: sesion.session?.user.id ?? null,
+      user_email: sesion.session?.user.email ?? "",
       accion: editando ? "editar" : "crear",
       entidad: tabla,
       entidad_id: editando?.id ?? null,
@@ -141,10 +193,10 @@ export function CrudSeccion({
       toast.error(error.message);
       return;
     }
-    const { data: sesion } = await supabase.auth.getUser();
+    const { data: sesion } = await supabase.auth.getSession();
     await (supabase as any).from("auditoria").insert({
-      user_id: sesion.user?.id ?? null,
-      user_email: sesion.user?.email ?? "",
+      user_id: sesion.session?.user.id ?? null,
+      user_email: sesion.session?.user.email ?? "",
       accion: "eliminar",
       entidad: tabla,
       entidad_id: fila.id,
@@ -274,7 +326,7 @@ export function CrudSeccion({
                         {valor ? "Sí" : "No"}
                       </span>
                     </div>
-                  ) : campo.tipo === "select" ? (
+                  ) : campo.tipo === "select" || campo.categoria ? (
                     <select
                       id={id}
                       className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
@@ -284,7 +336,7 @@ export function CrudSeccion({
                       }
                     >
                       <option value="">Sin definir</option>
-                      {campo.opciones?.map((o) => (
+                      {(campo.categoria ? (opcionesCat[campo.nombre] ?? []) : (campo.opciones ?? [])).map((o) => (
                         <option key={o.valor} value={o.valor}>
                           {o.etiqueta}
                         </option>
@@ -306,6 +358,9 @@ export function CrudSeccion({
                       }
                     />
                   )}
+                  {campo.slugDesde ? (
+                    <p className="text-xs text-muted-foreground">Dejalo vacío para generarlo automáticamente.</p>
+                  ) : null}
                   {campo.ayuda ? (
                     <p className="text-xs text-muted-foreground">{campo.ayuda}</p>
                   ) : null}

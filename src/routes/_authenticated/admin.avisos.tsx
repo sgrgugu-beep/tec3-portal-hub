@@ -19,10 +19,10 @@ function AdminAvisos() {
       campos={[
         { nombre: "titulo", etiqueta: "Título" },
         { nombre: "fecha", etiqueta: "Fecha", tipo: "fecha" },
-        { nombre: "categoria_slug", etiqueta: "Categoría (slug)", defecto: "institucional" },
+        { nombre: "categoria_slug", etiqueta: "Categoría", defecto: "institucional", categoria: "aviso" },
         { nombre: "destacado", etiqueta: "Destacado", tipo: "booleano" },
         { nombre: "publicado", etiqueta: "Publicado", tipo: "booleano" },
-        { nombre: "slug", etiqueta: "Slug (URL)", ocultarEnTabla: true },
+        { nombre: "slug", etiqueta: "Slug (URL)", ocultarEnTabla: true, slugDesde: "titulo" },
         { nombre: "resumen", etiqueta: "Resumen", tipo: "area", ocultarEnTabla: true },
         { nombre: "cuerpo", etiqueta: "Cuerpo", tipo: "area", ocultarEnTabla: true },
         { nombre: "imagen_url", etiqueta: "Imagen (URL)", ocultarEnTabla: true },

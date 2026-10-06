@@ -36,7 +36,7 @@ function AdminMaterias() {
             etiqueta: "Especialidad",
             tipo: "select",
             opciones: [
-              { valor: "ipp", etiqueta: "Informática (IPP)" },
+              { valor: "informatica", etiqueta: "Informática (IPP)" },
               { valor: "electronica", etiqueta: "Electrónica" },
               { valor: "alimentos", etiqueta: "Alimentos" },
             ],
@@ -54,7 +54,7 @@ function AdminMaterias() {
         campos={[
           { nombre: "nombre", etiqueta: "Nombre" },
           { nombre: "nombre_corto", etiqueta: "Nombre corto" },
-          { nombre: "slug", etiqueta: "Slug" },
+          { nombre: "slug", etiqueta: "Slug", slugDesde: "nombre" },
           { nombre: "orden", etiqueta: "Orden", tipo: "numero" },
           { nombre: "descripcion", etiqueta: "Descripción", tipo: "area", ocultarEnTabla: true },
           {
