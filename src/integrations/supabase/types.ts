@@ -128,6 +128,7 @@ export type Database = {
           slug: string
           titulo: string
           updated_at: string
+          urgente: boolean
         }
         Insert: {
           categoria_slug?: string
@@ -143,6 +144,7 @@ export type Database = {
           slug: string
           titulo: string
           updated_at?: string
+          urgente?: boolean
         }
         Update: {
           categoria_slug?: string
@@ -158,6 +160,7 @@ export type Database = {
           slug?: string
           titulo?: string
           updated_at?: string
+          urgente?: boolean
         }
         Relationships: []
       }
@@ -271,9 +274,12 @@ export type Database = {
           created_at: string
           descripcion: string
           id: string
+          imagen_alt: string
+          imagen_url: string
           nombre: string
           nombre_corto: string
           orden: number
+          practicas: string
           salida_laboral: string
           slug: string
           updated_at: string
@@ -282,9 +288,12 @@ export type Database = {
           created_at?: string
           descripcion?: string
           id?: string
+          imagen_alt?: string
+          imagen_url?: string
           nombre: string
           nombre_corto?: string
           orden?: number
+          practicas?: string
           salida_laboral?: string
           slug: string
           updated_at?: string
@@ -293,9 +302,12 @@ export type Database = {
           created_at?: string
           descripcion?: string
           id?: string
+          imagen_alt?: string
+          imagen_url?: string
           nombre?: string
           nombre_corto?: string
           orden?: number
+          practicas?: string
           salida_laboral?: string
           slug?: string
           updated_at?: string
@@ -352,6 +364,8 @@ export type Database = {
           id: string
           miniatura_url: string | null
           orden: number
+          publicado: boolean
+          tipo: string
           updated_at: string
           url: string
         }
@@ -362,6 +376,8 @@ export type Database = {
           id?: string
           miniatura_url?: string | null
           orden?: number
+          publicado?: boolean
+          tipo?: string
           updated_at?: string
           url: string
         }
@@ -372,6 +388,8 @@ export type Database = {
           id?: string
           miniatura_url?: string | null
           orden?: number
+          publicado?: boolean
+          tipo?: string
           updated_at?: string
           url?: string
         }
@@ -529,6 +547,51 @@ export type Database = {
           mensaje?: string
           nombre?: string
           telefono?: string | null
+        }
+        Relationships: []
+      }
+      oportunidades: {
+        Row: {
+          created_at: string
+          descripcion: string
+          enlace: string
+          especialidad_slug: string
+          fecha_cierre: string | null
+          id: string
+          organizacion: string
+          publicado: boolean
+          requisitos: string
+          tipo: string
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          descripcion?: string
+          enlace?: string
+          especialidad_slug?: string
+          fecha_cierre?: string | null
+          id?: string
+          organizacion?: string
+          publicado?: boolean
+          requisitos?: string
+          tipo?: string
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          descripcion?: string
+          enlace?: string
+          especialidad_slug?: string
+          fecha_cierre?: string | null
+          id?: string
+          organizacion?: string
+          publicado?: boolean
+          requisitos?: string
+          tipo?: string
+          titulo?: string
+          updated_at?: string
         }
         Relationships: []
       }
