@@ -1,5 +1,10 @@
 # Roadmap
 
+- [ ] Prioridad: galería de fotos y videos con subida múltiple, álbumes y visor accesible
+- [ ] Páginas de especialidades con identidad, fotografías y oportunidades gestionables
+- [ ] Avisos urgentes visibles y acceso configurable a difusión por WhatsApp
+- [ ] Mejorar gestión del panel y verificar los nuevos flujos
+
 - [x] Sitio público completo (SEO, accesibilidad, modo oscuro)
 - [x] Panel de admin con roles, permisos, invitaciones y auditoría
 - [x] Paquete portable de base de datos (`portable/01_schema.sql`, `portable/02_datos.sql`, `portable/MIGRACION.md`)
