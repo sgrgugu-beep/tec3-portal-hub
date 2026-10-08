@@ -12,6 +12,7 @@ function AdminConfiguracion() {
   return (
     <CrudSeccion
       tabla="configuracion_sitio"
+      clavePrimaria="clave"
       titulo="Configuración del sitio"
       descripcion="Datos de contacto, textos institucionales y redes sociales."
       puedeEditar={sesion.puede("configuracion")}

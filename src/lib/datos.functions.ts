@@ -13,6 +13,7 @@ import {
   obtenerEventos,
   obtenerIntegrantes,
   obtenerMaterias,
+  obtenerOportunidades,
 } from "@/lib/datos.server";
 
 export const listarAvisos = createServerFn({ method: "GET" }).handler(() => obtenerAvisos());
@@ -38,6 +39,7 @@ export const listarAutoridades = createServerFn({ method: "GET" }).handler(() =>
 );
 
 export const listarAlbumes = createServerFn({ method: "GET" }).handler(() => obtenerAlbumes());
+export const listarOportunidades = createServerFn({method:'GET'}).handler(()=>obtenerOportunidades());
 
 export const listarCategorias = createServerFn({ method: "GET" }).handler(() =>
   obtenerCategorias(),

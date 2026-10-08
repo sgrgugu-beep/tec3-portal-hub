@@ -11,6 +11,8 @@ import {
   listarEventos,
   listarIntegrantes,
   listarMaterias,
+  listarOportunidades,
+  obtenerConfig,
 } from "@/lib/datos.functions";
 
 /**
@@ -56,6 +58,9 @@ export const consultaAlbumes = queryOptions({
   queryKey: ["albumes"],
   queryFn: () => listarAlbumes(),
 });
+
+export const consultaOportunidades = queryOptions({queryKey:['oportunidades'],queryFn:()=>listarOportunidades()});
+export const consultaConfig = queryOptions({queryKey:['configuracion'],queryFn:()=>obtenerConfig()});
 
 export const consultaCategorias = queryOptions({
   queryKey: ["categorias"],
