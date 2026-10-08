@@ -2,6 +2,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import type { Database } from "@/integrations/supabase/types";
 import { formatearFecha } from "@/lib/contenido";
+import { oportunidadVigente } from '@/lib/media';
 import type {
   Album,
   Autoridad,
@@ -14,6 +15,7 @@ import type {
   IntegranteCentro,
   Materia,
   ResultadoBusqueda,
+  Oportunidad,
 } from "@/lib/contenido";
 
 /**
@@ -44,6 +46,14 @@ const ambitoPorTipo = {
   galeria: "galeria",
 } as const;
 
+async function resolverMedio(cliente: SupabaseClient<Database>, valor: string | null): Promise<string> {
+  if (!valor) return '';
+  if (!valor.startsWith('storage:')) return valor;
+  const {data,error} = await cliente.storage.from('galeria').createSignedUrl(valor.slice(8), 7200);
+  if (error) throw new Error('No se pudo cargar un archivo de la galería.');
+  return data.signedUrl;
+}
+
 export async function obtenerCategorias(): Promise<Categoria[]> {
   const { data, error } = await clientePublico()
     .from("categorias")
@@ -65,7 +75,8 @@ export async function obtenerAvisos(): Promise<Aviso[]> {
     .order("destacado", { ascending: false })
     .order("fecha", { ascending: false });
   if (error) throw new Error(error.message);
-  return (data ?? []).map((a) => ({
+  const cliente = clientePublico();
+  return Promise.all((data ?? []).map(async (a) => ({
     slug: a.slug,
     titulo: a.titulo,
     resumen: a.resumen,
@@ -73,9 +84,10 @@ export async function obtenerAvisos(): Promise<Aviso[]> {
     categoria: a.categoria_slug,
     fecha: a.fecha,
     destacado: a.destacado,
+    urgente: a.urgente,
     estado: "publicado",
-    ...(a.imagen_url ? { imagen: a.imagen_url } : {}),
-  }));
+    ...(a.imagen_url ? { imagen: await resolverMedio(cliente, a.imagen_url) } : {}),
+  })));
 }
 
 export async function obtenerEventos(): Promise<EventoCalendario[]> {
@@ -106,13 +118,17 @@ export async function obtenerEspecialidades(): Promise<Especialidad[]> {
     .select("*")
     .order("orden", { ascending: true });
   if (error) throw new Error(error.message);
-  return (data ?? []).map((e) => ({
+  const cliente = clientePublico();
+  return Promise.all((data ?? []).map(async (e) => ({
     slug: e.slug as EspecialidadSlug,
     nombre: e.nombre,
     nombreCorto: e.nombre_corto,
     resumen: e.descripcion,
     salidaLaboral: e.salida_laboral,
-  }));
+    imagen: await resolverMedio(cliente,e.imagen_url),
+    imagenAlt: e.imagen_alt,
+    practicas: e.practicas,
+  })));
 }
 
 export async function obtenerMaterias(): Promise<Materia[]> {
@@ -187,19 +203,26 @@ export async function obtenerAlbumes(): Promise<Album[]> {
         .select("*")
         .eq("publicado", true)
         .order("fecha", { ascending: false }),
-      cliente.from("fotos").select("*").order("orden", { ascending: true }),
+      cliente.from("fotos").select("*").eq('publicado',true).order("orden", { ascending: true }),
     ]);
   if (errorAlbumes) throw new Error(errorAlbumes.message);
   if (errorFotos) throw new Error(errorFotos.message);
-  return (albumes ?? []).map((a) => ({
+  return Promise.all((albumes ?? []).map(async (a) => ({
     slug: a.slug,
     titulo: a.titulo,
     categoria: a.categoria_slug,
     descripcion: a.descripcion,
-    fotos: (fotos ?? [])
+    fotos: await Promise.all((fotos ?? [])
       .filter((f) => f.album_id === a.id)
-      .map((f) => ({ src: f.url, alt: f.alt })),
-  }));
+      .map(async (f) => ({ src: await resolverMedio(cliente,f.url), alt: f.alt, tipo: f.tipo === 'video' ? 'video' as const : 'foto' as const, miniatura: await resolverMedio(cliente,f.miniatura_url) }))),
+  })));
+}
+
+export async function obtenerOportunidades(): Promise<Oportunidad[]> {
+  const {data,error} = await clientePublico().from('oportunidades').select('id,titulo,especialidad_slug,tipo,organizacion,descripcion,requisitos,enlace,fecha_cierre').eq('publicado',true).order('created_at',{ascending:false});
+  if(error) throw new Error(error.message);
+  const hoy=new Date().toISOString().slice(0,10);
+  return (data??[]).filter(o=>oportunidadVigente(o.fecha_cierre,hoy));
 }
 
 export async function obtenerConfiguracion(): Promise<Record<string, string>> {

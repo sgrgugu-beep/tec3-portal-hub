@@ -24,11 +24,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from '@tanstack/react-query';
+import { CampoImagen } from './campo-imagen';
 
 export type Campo = {
   nombre: string;
   etiqueta: string;
-  tipo?: "texto" | "area" | "numero" | "booleano" | "fecha" | "select";
+  tipo?: "texto" | "area" | "numero" | "booleano" | "fecha" | "select" | 'imagen';
+  opcional?: boolean;
   opciones?: { valor: string; etiqueta: string }[];
   defecto?: unknown;
   ayuda?: string;
@@ -60,6 +63,8 @@ interface Props {
   campos: Campo[];
   ordenPor?: { columna: string; asc?: boolean };
   puedeEditar: boolean;
+  clavePrimaria?: string;
+  onSaved?: () => void;
 }
 
 export function CrudSeccion({
@@ -69,7 +74,10 @@ export function CrudSeccion({
   campos,
   ordenPor,
   puedeEditar,
+  clavePrimaria = 'id',
+  onSaved,
 }: Props) {
+  const queryClient = useQueryClient();
   const [filas, setFilas] = useState<Fila[]>([]);
   const [cargando, setCargando] = useState(true);
   const [abierto, setAbierto] = useState(false);
@@ -145,7 +153,7 @@ export function CrudSeccion({
     for (const campo of campos) {
       let valor = valores[campo.nombre];
       if (campo.tipo === "numero") valor = Number(valor) || 0;
-      if (valor === "" && campo.tipo === "fecha") valor = new Date().toISOString().slice(0, 10);
+      if (valor === "" && campo.tipo === "fecha") valor = campo.opcional ? null : new Date().toISOString().slice(0, 10);
       if (typeof valor === "string") valor = valor.trim();
       if (campo.slugDesde && !valor) {
         const base = aSlug(String(valores[campo.slugDesde] ?? ""));
@@ -153,14 +161,14 @@ export function CrudSeccion({
       }
       payload[campo.nombre] = valor;
     }
-    const primero = campos[0]!;
-    if (primero.tipo !== "numero" && !payload[primero.nombre]) {
+    const primero = campos[0];
+    if (primero && primero.tipo !== "numero" && !payload[primero.nombre]) {
       setGuardando(false);
       toast.error(`Completá el campo "${primero.etiqueta}".`);
       return;
     }
     const consulta = editando
-      ? (supabase as any).from(tabla).update(payload).eq("id", editando.id)
+      ? (supabase as any).from(tabla).update(payload).eq(clavePrimaria, editando[clavePrimaria])
       : (supabase as any).from(tabla).insert(payload);
     const { error } = await consulta;
     setGuardando(false);
@@ -179,16 +187,18 @@ export function CrudSeccion({
       accion: editando ? "editar" : "crear",
       entidad: tabla,
       entidad_id: editando?.id ?? null,
-      detalle: String(payload[campos[0]!.nombre] ?? ""),
+      detalle: primero ? String(payload[primero.nombre] ?? "") : '',
     });
     toast.success(editando ? "Cambios guardados" : "Registro creado");
+    void queryClient.invalidateQueries();
     setAbierto(false);
+    onSaved?.();
     void cargar();
   }
 
   async function eliminar(fila: Fila) {
     if (!window.confirm("¿Eliminar este registro? Esta acción no se puede deshacer.")) return;
-    const { error } = await (supabase as any).from(tabla).delete().eq("id", fila.id);
+    const { error } = await (supabase as any).from(tabla).delete().eq(clavePrimaria, fila[clavePrimaria]);
     if (error) {
       toast.error(error.message);
       return;
@@ -200,9 +210,11 @@ export function CrudSeccion({
       accion: "eliminar",
       entidad: tabla,
       entidad_id: fila.id,
-      detalle: String(fila[campos[0]!.nombre] ?? ""),
+      detalle: campos[0] ? String(fila[campos[0].nombre] ?? "") : '',
     });
     toast.success("Registro eliminado");
+    void queryClient.invalidateQueries();
+    onSaved?.();
     void cargar();
   }
 
@@ -216,14 +228,14 @@ export function CrudSeccion({
 
   return (
     <section className="space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-display text-2xl font-semibold">{titulo}</h1>
+      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
+        <div className="min-w-0">
+          <h2 className="font-display text-2xl font-semibold">{titulo}</h2>
           {descripcion ? (
             <p className="text-sm text-muted-foreground">{descripcion}</p>
           ) : null}
         </div>
-        <div className="flex gap-2">
+        <div className="flex shrink-0 gap-2">
           <Button variant="outline" size="sm" onClick={() => void cargar()}>
             <RefreshCw className="mr-2 size-4" aria-hidden="true" /> Actualizar
           </Button>
@@ -256,7 +268,7 @@ export function CrudSeccion({
               </TableRow>
             ) : (
               filas.map((fila) => (
-                <TableRow key={fila.id}>
+                <TableRow key={String(fila[clavePrimaria])}>
                   {columnas.map((c) => (
                     <TableCell key={c.nombre} className="max-w-xs truncate">
                       {typeof fila[c.nombre] === "boolean"
@@ -304,7 +316,7 @@ export function CrudSeccion({
               return (
                 <div key={campo.nombre} className="space-y-2">
                   <Label htmlFor={id}>{campo.etiqueta}</Label>
-                  {campo.tipo === "area" ? (
+                  {campo.tipo === 'imagen' ? <CampoImagen id={id} valor={String(valor??'')} carpeta={tabla==='avisos'?'avisos':'especialidades'} onChange={value=>setValores(v=>({...v,[campo.nombre]:value}))} /> : campo.tipo === "area" ? (
                     <Textarea
                       id={id}
                       rows={5}

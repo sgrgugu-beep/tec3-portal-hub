@@ -25,6 +25,7 @@ export interface Aviso {
   destacado: boolean;
   estado: EstadoPublicacion;
   imagen?: string;
+  urgente?: boolean;
 }
 
 export interface EventoCalendario {
@@ -55,6 +56,9 @@ export interface Especialidad {
   nombreCorto: string;
   resumen: string;
   salidaLaboral: string;
+  imagen?: string;
+  imagenAlt?: string;
+  practicas?: string;
 }
 
 export interface Capacitacion {
@@ -81,7 +85,19 @@ export interface Album {
   titulo: string;
   categoria: string;
   descripcion: string;
-  fotos: { src: string; alt: string }[];
+  fotos: { src: string; alt: string; tipo?: 'foto' | 'video'; miniatura?: string }[];
+}
+
+export interface Oportunidad {
+  id: string;
+  titulo: string;
+  especialidad_slug: string;
+  tipo: string;
+  organizacion: string;
+  descripcion: string;
+  requisitos: string;
+  enlace: string;
+  fecha_cierre: string | null;
 }
 
 export interface Autoridad {

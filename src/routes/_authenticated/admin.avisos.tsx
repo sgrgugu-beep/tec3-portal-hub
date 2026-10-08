@@ -21,11 +21,12 @@ function AdminAvisos() {
         { nombre: "fecha", etiqueta: "Fecha", tipo: "fecha" },
         { nombre: "categoria_slug", etiqueta: "Categoría", defecto: "institucional", categoria: "aviso" },
         { nombre: "destacado", etiqueta: "Destacado", tipo: "booleano" },
+        { nombre: 'urgente', etiqueta: 'Urgencia máxima', tipo: 'booleano', ayuda: 'Al publicarlo, aparece en todas las páginas y al entrar se abre completo.' },
         { nombre: "publicado", etiqueta: "Publicado", tipo: "booleano" },
         { nombre: "slug", etiqueta: "Slug (URL)", ocultarEnTabla: true, slugDesde: "titulo" },
         { nombre: "resumen", etiqueta: "Resumen", tipo: "area", ocultarEnTabla: true },
         { nombre: "cuerpo", etiqueta: "Cuerpo", tipo: "area", ocultarEnTabla: true },
-        { nombre: "imagen_url", etiqueta: "Imagen (URL)", ocultarEnTabla: true },
+        { nombre: "imagen_url", etiqueta: "Imagen", tipo:'imagen', ocultarEnTabla: true },
         { nombre: "imagen_alt", etiqueta: "Texto alternativo", ocultarEnTabla: true },
       ]}
     />

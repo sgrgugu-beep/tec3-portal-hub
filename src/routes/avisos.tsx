@@ -122,8 +122,10 @@ function Avisos() {
           {listado.map((aviso) => (
             <li key={aviso.slug}>
               <article className="tarjeta tarjeta-interactiva flex h-full flex-col p-6">
+                {aviso.imagen&&<img src={aviso.imagen} alt={aviso.titulo} loading="lazy" className="mb-5 aspect-[16/9] w-full rounded-lg object-cover"/>}
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="secondary">{nombreCategoria(aviso.categoria)}</Badge>
+                  {aviso.urgente&&<Badge variant="destructive">Urgente</Badge>}
                   {aviso.destacado && (
                     <Badge className="gap-1">
                       <Star className="size-3" aria-hidden="true" /> Destacado

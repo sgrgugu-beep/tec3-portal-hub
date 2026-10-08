@@ -14,6 +14,7 @@ export const navegacion = [
   { to: "/avisos", label: "Avisos" },
   { to: "/calendario", label: "Calendario" },
   { to: "/materias", label: "Materias" },
+  { to: '/especialidades', label: 'Especialidades' },
   { to: "/capacitaciones", label: "Capacitaciones" },
   { to: "/centro-de-estudiantes", label: "Centro de Estudiantes" },
   { to: "/galeria", label: "Galería" },
@@ -49,7 +50,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Navegación principal" className="hidden 2xl:block">
+        <nav aria-label="Navegación principal" className="hidden min-[1900px]:block">
           <ul className="flex items-center gap-1">
             {navegacion.map((item) => (
               <li key={item.to}>
@@ -77,7 +78,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="2xl:hidden"
+            className="min-[1900px]:hidden"
             aria-expanded={abierto}
             aria-controls="menu-movil"
             aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
@@ -89,7 +90,7 @@ export function Header() {
       </div>
 
       {abierto && (
-        <nav id="menu-movil" aria-label="Navegación móvil" className="border-t border-border bg-background 2xl:hidden">
+        <nav id="menu-movil" aria-label="Navegación móvil" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background min-[1900px]:hidden">
           <ul className="contenedor grid gap-1 py-3">
             {navegacion.map((item) => (
               <li key={item.to}>
