@@ -1,0 +1,12 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { ArrowUpRight } from 'lucide-react';
+import { consultaEspecialidades } from '@/lib/consultas';
+import { identidadEspecialidades } from '@/lib/identidad-especialidades';
+import { EncabezadoPagina } from '@/components/site/encabezado-pagina';
+import { ErrorContenido } from '@/components/site/estado-ruta';
+import { Reveal } from '@/components/site/reveal';
+const titulo='Especialidades técnicas — Técnica 3 Avellaneda';
+const descripcion='Conocé Informática Personal y Profesional, Electrónica y Alimentos: prácticas, proyectos y salidas laborales.';
+export const Route=createFileRoute('/especialidades')({head:()=>({meta:[{title:titulo},{name:'description',content:descripcion},{property:'og:title',content:titulo},{property:'og:description',content:descripcion},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),loader:({context})=>context.queryClient.ensureQueryData(consultaEspecialidades),errorComponent:ErrorContenido,component:Especialidades});
+function Especialidades(){const {data}=useSuspenseQuery(consultaEspecialidades);return <><EncabezadoPagina volanta="Aprender haciendo" titulo="Especialidades" descripcion="Tres caminos para transformar la curiosidad en conocimientos, proyectos y nuevas oportunidades."/><div className="contenedor space-y-10 py-12">{[...data].sort((a,b)=>Number(b.slug==='informatica')-Number(a.slug==='informatica')).map((e,i)=>{const identidad=identidadEspecialidades[e.slug];if(!identidad)return null;return <Reveal key={e.slug} className={identidad.clase}><Link to="/especialidad/$slug" params={{slug:e.slug}} className="group grid overflow-hidden border-b border-border pb-10 md:grid-cols-2 md:gap-10"><img src={e.imagen||identidad.imagen} alt={e.imagenAlt||e.nombre} className="aspect-[4/3] w-full rounded-lg object-cover" loading={i===0?'eager':'lazy'}/><div className="min-w-0 py-7 md:py-5"><p className="technical-label text-specialty">0{i+1} / {e.nombreCorto}</p><h2 className="mt-4 flex items-start justify-between gap-4 text-3xl font-semibold">{e.nombre}<ArrowUpRight className="size-6 shrink-0 text-specialty"/></h2><p className="mt-5 leading-relaxed text-muted-foreground">{e.resumen}</p><p className="mt-6 text-sm font-semibold text-specialty">Prácticas, proyectos y futuro laboral</p></div></Link></Reveal>})}</div></>}
