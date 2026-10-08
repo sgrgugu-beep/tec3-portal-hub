@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { LogOut } from "lucide-react";
+import { LogOut, ChevronDown, FolderOpen } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useSesion } from "@/hooks/use-sesion";
@@ -17,6 +17,7 @@ const enlaces = [
   { to: "/admin/avisos", etiqueta: "Avisos", seccion: "avisos" },
   { to: "/admin/calendario", etiqueta: "Calendario", seccion: "calendario" },
   { to: "/admin/materias", etiqueta: "Materias", seccion: "materias" },
+  { to: '/admin/especialidades', etiqueta: 'Especialidades y oportunidades', seccion: 'materias' },
   { to: "/admin/capacitaciones", etiqueta: "Capacitaciones", seccion: "capacitaciones" },
   { to: "/admin/centro", etiqueta: "Centro de Estudiantes", seccion: "centro" },
   { to: "/admin/galeria", etiqueta: "Galería", seccion: "galeria" },
@@ -49,7 +50,7 @@ function LayoutAdmin() {
 
   return (
     <div className="contenedor grid gap-8 py-10 lg:grid-cols-[240px_1fr]">
-      <aside className="space-y-4">
+      <aside className="min-w-0 space-y-4 lg:sticky lg:top-24 lg:self-start">
         <div className="flex items-center gap-3">
           <img
             src={logoEscuela.url}
@@ -58,14 +59,14 @@ function LayoutAdmin() {
             width={40}
             height={40}
           />
-          <div className="leading-tight">
+          <div className="min-w-0 leading-tight">
             <p className="font-display text-sm font-semibold">Panel de gestión</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="truncate text-xs text-muted-foreground">
               {sesion.nombre || sesion.user?.email}
             </p>
           </div>
         </div>
-        <nav aria-label="Secciones del panel">
+        <details open className="rounded-lg border border-border bg-surface p-3"><summary className="flex cursor-pointer items-center justify-between gap-3 py-2 text-sm font-semibold"><span className="flex items-center gap-2"><FolderOpen className="size-4"/>Gestión del sitio</span><ChevronDown className="size-4"/></summary><nav aria-label="Secciones del panel">
           <ul className="space-y-1">
             {enlaces
               .filter((e) => !e.seccion || sesion.puede(e.seccion as never))
@@ -75,14 +76,14 @@ function LayoutAdmin() {
                     to={e.to}
                     activeOptions={{ exact: e.to === "/admin" }}
                     activeProps={{ className: "bg-primary text-primary-foreground" }}
-                    className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted"
+                    className="block rounded-md px-3 py-2.5 text-sm transition-colors hover:bg-muted"
                   >
                     {e.etiqueta}
                   </Link>
                 </li>
               ))}
           </ul>
-        </nav>
+        </nav></details>
         <Button variant="outline" size="sm" className="w-full" onClick={() => void salir()}>
           <LogOut className="mr-2 size-4" aria-hidden="true" /> Cerrar sesión
         </Button>

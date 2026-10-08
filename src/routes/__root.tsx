@@ -18,6 +18,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ExperienciaScroll, TransicionPagina } from "@/components/site/experiencia";
 import { NoEncontrado } from "@/components/site/no-encontrado";
 import { Button } from "@/components/ui/button";
+import { ComunicacionGlobal } from '@/components/site/comunicacion-global';
 
 function NotFoundComponent() {
   return <NoEncontrado />;
@@ -113,6 +114,7 @@ function RootComponent() {
       <ExperienciaScroll />
       <div className="flex min-h-screen flex-col">
         <Header />
+        <ComunicacionGlobal />
         <main id="contenido-principal" className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <TransicionPagina>

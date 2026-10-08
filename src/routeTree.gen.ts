@@ -17,10 +17,12 @@ import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as CapacitacionesRouteImport } from './routes/capacitaciones'
 import { Route as CentroDeEstudiantesRouteImport } from './routes/centro-de-estudiantes'
 import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as EspecialidadesRouteImport } from './routes/especialidades'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as InstitucionalRouteImport } from './routes/institucional'
 import { Route as MateriasRouteImport } from './routes/materias'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as EspecialidadSlugRouteImport } from './routes/especialidad.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAuditoriaRouteImport } from './routes/_authenticated/admin.auditoria'
 import { Route as AuthenticatedAdminAvisosRouteImport } from './routes/_authenticated/admin.avisos'
@@ -74,6 +76,11 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EspecialidadesRoute = EspecialidadesRouteImport.update({
+  id: '/especialidades',
+  path: '/especialidades',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GaleriaRoute = GaleriaRouteImport.update({
   id: '/galeria',
   path: '/galeria',
@@ -93,6 +100,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const EspecialidadSlugRoute = EspecialidadSlugRouteImport.update({
+  id: '/especialidad/$slug',
+  path: '/especialidad/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
@@ -180,10 +192,12 @@ export interface FileRoutesByFullPath {
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
   '/contacto': typeof ContactoRoute
+  '/especialidades': typeof EspecialidadesRoute
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/especialidad/$slug': typeof EspecialidadSlugRoute
   '/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
@@ -206,9 +220,11 @@ export interface FileRoutesByTo {
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
   '/contacto': typeof ContactoRoute
+  '/especialidades': typeof EspecialidadesRoute
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
+  '/especialidad/$slug': typeof EspecialidadSlugRoute
   '/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
@@ -233,10 +249,12 @@ export interface FileRoutesById {
   '/capacitaciones': typeof CapacitacionesRoute
   '/centro-de-estudiantes': typeof CentroDeEstudiantesRoute
   '/contacto': typeof ContactoRoute
+  '/especialidades': typeof EspecialidadesRoute
   '/galeria': typeof GaleriaRoute
   '/institucional': typeof InstitucionalRoute
   '/materias': typeof MateriasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/especialidad/$slug': typeof EspecialidadSlugRoute
   '/_authenticated/admin/auditoria': typeof AuthenticatedAdminAuditoriaRoute
   '/_authenticated/admin/avisos': typeof AuthenticatedAdminAvisosRoute
   '/_authenticated/admin/calendario': typeof AuthenticatedAdminCalendarioRoute
@@ -261,10 +279,12 @@ export interface FileRouteTypes {
     | '/capacitaciones'
     | '/centro-de-estudiantes'
     | '/contacto'
+    | '/especialidades'
     | '/galeria'
     | '/institucional'
     | '/materias'
     | '/admin'
+    | '/especialidad/$slug'
     | '/admin/auditoria'
     | '/admin/avisos'
     | '/admin/calendario'
@@ -287,9 +307,11 @@ export interface FileRouteTypes {
     | '/capacitaciones'
     | '/centro-de-estudiantes'
     | '/contacto'
+    | '/especialidades'
     | '/galeria'
     | '/institucional'
     | '/materias'
+    | '/especialidad/$slug'
     | '/admin/auditoria'
     | '/admin/avisos'
     | '/admin/calendario'
@@ -313,10 +335,12 @@ export interface FileRouteTypes {
     | '/capacitaciones'
     | '/centro-de-estudiantes'
     | '/contacto'
+    | '/especialidades'
     | '/galeria'
     | '/institucional'
     | '/materias'
     | '/_authenticated/admin'
+    | '/especialidad/$slug'
     | '/_authenticated/admin/auditoria'
     | '/_authenticated/admin/avisos'
     | '/_authenticated/admin/calendario'
@@ -341,9 +365,11 @@ export interface RootRouteChildren {
   CapacitacionesRoute: typeof CapacitacionesRoute
   CentroDeEstudiantesRoute: typeof CentroDeEstudiantesRoute
   ContactoRoute: typeof ContactoRoute
+  EspecialidadesRoute: typeof EspecialidadesRoute
   GaleriaRoute: typeof GaleriaRoute
   InstitucionalRoute: typeof InstitucionalRoute
   MateriasRoute: typeof MateriasRoute
+  EspecialidadSlugRoute: typeof EspecialidadSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -404,6 +430,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/especialidades': {
+      id: '/especialidades'
+      path: '/especialidades'
+      fullPath: '/especialidades'
+      preLoaderRoute: typeof EspecialidadesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/galeria': {
       id: '/galeria'
       path: '/galeria'
@@ -431,6 +464,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/especialidad/$slug': {
+      id: '/especialidad/$slug'
+      path: '/especialidad/$slug'
+      fullPath: '/especialidad/$slug'
+      preLoaderRoute: typeof EspecialidadSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -581,9 +621,11 @@ const rootRouteChildren: RootRouteChildren = {
   CapacitacionesRoute: CapacitacionesRoute,
   CentroDeEstudiantesRoute: CentroDeEstudiantesRoute,
   ContactoRoute: ContactoRoute,
+  EspecialidadesRoute: EspecialidadesRoute,
   GaleriaRoute: GaleriaRoute,
   InstitucionalRoute: InstitucionalRoute,
   MateriasRoute: MateriasRoute,
+  EspecialidadSlugRoute: EspecialidadSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

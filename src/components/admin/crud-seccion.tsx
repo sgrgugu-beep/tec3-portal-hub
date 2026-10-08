@@ -64,6 +64,7 @@ interface Props {
   ordenPor?: { columna: string; asc?: boolean };
   puedeEditar: boolean;
   clavePrimaria?: string;
+  onSaved?: () => void;
 }
 
 export function CrudSeccion({
@@ -74,6 +75,7 @@ export function CrudSeccion({
   ordenPor,
   puedeEditar,
   clavePrimaria = 'id',
+  onSaved,
 }: Props) {
   const queryClient = useQueryClient();
   const [filas, setFilas] = useState<Fila[]>([]);
@@ -190,6 +192,7 @@ export function CrudSeccion({
     toast.success(editando ? "Cambios guardados" : "Registro creado");
     void queryClient.invalidateQueries();
     setAbierto(false);
+    onSaved?.();
     void cargar();
   }
 
@@ -211,6 +214,7 @@ export function CrudSeccion({
     });
     toast.success("Registro eliminado");
     void queryClient.invalidateQueries();
+    onSaved?.();
     void cargar();
   }
 
@@ -264,7 +268,7 @@ export function CrudSeccion({
               </TableRow>
             ) : (
               filas.map((fila) => (
-                <TableRow key={fila.id}>
+                <TableRow key={String(fila[clavePrimaria])}>
                   {columnas.map((c) => (
                     <TableCell key={c.nombre} className="max-w-xs truncate">
                       {typeof fila[c.nombre] === "boolean"

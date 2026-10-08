@@ -11,6 +11,7 @@ import proyectoElectronica from "@/assets/proyecto-electronica.webp.asset.json";
 import { ErrorContenido } from "@/components/site/estado-ruta";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
+import { identidadEspecialidades } from '@/lib/identidad-especialidades';
 import {
   consultaAvisos,
   consultaCategorias,
@@ -229,9 +230,9 @@ function Inicio() {
               const foto = fotosEspecialidades[e.slug] ?? fotosEspecialidades["informatica"];
               return <li key={e.slug}>
                 <Reveal delay={index * 100}>
-                  <Link to="/materias" className="group block min-w-0 overflow-hidden rounded-2xl bg-card shadow-institucional transition-all duration-500 hover:-translate-y-2 hover:shadow-elevado">
+                  <Link to="/especialidad/$slug" params={{slug:e.slug}} className={`group block min-w-0 overflow-hidden rounded-lg border-b-4 border-specialty bg-card shadow-institucional transition-all duration-500 hover:-translate-y-2 hover:shadow-elevado ${identidadEspecialidades[e.slug]?.clase??''}`}>
                     <div className="relative aspect-[4/3] overflow-hidden">
-                      <img src={foto?.src} alt={foto?.alt ?? e.nombre} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <img src={e.imagen||foto?.src} alt={e.imagenAlt||foto?.alt||e.nombre} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       <span className={`absolute left-4 top-4 size-3 rounded-full ${foto?.color ?? "bg-accent"}`} aria-hidden="true" />
                     </div>
                     <div className="p-6">

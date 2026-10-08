@@ -62,6 +62,7 @@
   --color-institutional: var(--institutional);
   --color-institutional-foreground: var(--institutional-foreground);
   --color-institutional-accent: var(--institutional-accent);
+  --color-specialty: var(--specialty, var(--primary));
 
   --shadow-institucional: 0 1px 2px oklch(0.3 0.06 255 / 0.06), 0 12px 32px -12px oklch(0.3 0.06 255 / 0.18);
   --shadow-elevado: 0 2px 4px oklch(0.3 0.06 255 / 0.08), 0 24px 48px -16px oklch(0.3 0.06 255 / 0.26);
@@ -228,6 +229,16 @@
 .hero-image-drift {
   animation: hero-drift 12s ease-in-out infinite alternate;
 }
+
+.especialidad-informatica { --specialty: var(--chart-1); }
+.especialidad-electronica { --specialty: var(--chart-2); }
+.especialidad-alimentos { --specialty: var(--chart-4); }
+.specialty-cover {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--institutional) 95%, transparent), color-mix(in oklab, var(--institutional) 66%, transparent) 65%, color-mix(in oklab, var(--institutional) 25%, transparent));
+}
+.media-reveal.reveal { filter: blur(3px); transition: opacity 600ms ease, transform 600ms ease, filter 600ms ease; }
+.media-reveal.reveal-visible { filter: blur(0); }
+@media (prefers-reduced-motion: reduce) { .media-reveal.reveal { filter: none; transition: none; } }
 
 @keyframes hero-drift {
   from { transform: scale(1.04) translate3d(0, 0, 0); }
