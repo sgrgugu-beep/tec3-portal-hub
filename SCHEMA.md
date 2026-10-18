@@ -1,14 +1,33 @@
 # Esquema de base de datos — Técnica 3 Avellaneda
 
-Este documento describe el esquema previsto en PostgreSQL estándar (compatible con
-Supabase y con cualquier Postgres). Todavía **no está aplicado**: se ejecuta cuando
-se conecte el proyecto propio de Supabase (Settings → Connectors → Connect Supabase).
-
-Mientras tanto, todo el contenido del sitio público vive en `src/lib/contenido.ts`
-(tipado, un solo archivo) para que la migración consista en reemplazar esas funciones
-por consultas a las tablas de abajo, sin tocar los componentes.
+El esquema está aplicado en Lovable Cloud. Las consultas públicas usan funciones
+del servidor y políticas de lectura; el panel usa la sesión y los permisos por sección.
+El paquete `portable` conserva el esquema inicial para migración a una base propia.
+Las ampliaciones posteriores están en `drizzle/migrations` y deben aplicarse también.
 
 ## Convenciones
+
+## Galería multimedia y especialidades
+
+- `fotos`: incorpora `tipo` (`foto` o `video`) y `publicado`. El panel acepta JPG, PNG,
+  WebP, MP4 y WebM, hasta 50 MB por archivo. Videos usan controles nativos, sin reproducción automática en la cuadrícula.
+- `albumes`: el panel elige por nombre; no requiere copiar identificadores. Un álbum
+  oculto no expone sus fotos ni sus archivos a visitantes.
+- Bucket `galeria`: privado, por política del workspace. `url` guarda `storage:ruta`;
+  las lecturas autorizadas generan enlaces firmados. Las fotos proporcionadas por
+  chat usan sus referencias CDN. La escritura respeta permisos de `galeria`, `materias`
+  o `avisos` según la carpeta correspondiente.
+- `especialidades`: agrega `imagen_url`, `imagen_alt` y `practicas`. Las páginas
+  `/especialidad/informatica`, `/especialidad/electronica`, `/especialidad/alimentos`
+  consumen esos campos sin modificar la estructura curricular.
+- `oportunidades`: `id`, `titulo`, `especialidad_slug`, `tipo` (`pasantia`/`empleo`),
+  `organizacion`, `descripcion`, `requisitos`, `enlace`, `fecha_cierre`, `publicado`,
+  `created_at`, `updated_at`. Lectura pública solo publicada; cierre inclusive.
+  Gestión vinculada al permiso `materias`. No se inventan vacantes para rellenar.
+- `avisos.urgente`: publicado y urgente muestra una franja global y abre un aviso
+  completo al entrar. Tras reconocerlo, la franja permanece visible.
+- `configuracion_sitio.whatsapp_difusion`: enlace HTTPS de WhatsApp, vacío por defecto;
+  oculta el botón cuando aún no hay enlace real.
 
 - `uuid` como clave primaria (`gen_random_uuid()`, extensión `pgcrypto`, estándar).
 - `timestamptz` para auditoría (`creado_en`, `actualizado_en`).

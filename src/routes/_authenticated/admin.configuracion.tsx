@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { CrudSeccion } from "@/components/admin/crud-seccion";
 import { useSesion } from "@/hooks/use-sesion";
+import { ConfiguracionDifusion } from '@/components/admin/configuracion-difusion';
 
 export const Route = createFileRoute("/_authenticated/admin/configuracion")({
   component: AdminConfiguracion,
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/_authenticated/admin/configuracion")({
 function AdminConfiguracion() {
   const sesion = useSesion();
   return (
+    <div className="space-y-10"><h1 className="text-3xl font-semibold">Configuración del sitio</h1><ConfiguracionDifusion puede={sesion.puede('configuracion')}/>
     <CrudSeccion
       tabla="configuracion_sitio"
       clavePrimaria="clave"
@@ -24,5 +26,6 @@ function AdminConfiguracion() {
         { nombre: "descripcion", etiqueta: "Descripción", ocultarEnTabla: true },
       ]}
     />
+    </div>
   );
 }
