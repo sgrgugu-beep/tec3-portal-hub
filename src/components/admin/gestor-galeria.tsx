@@ -29,7 +29,7 @@ export function GestorGaleria({puede}:{puede:boolean}) {
   }catch(e){setError(e instanceof Error?e.message:'No se pudo cargar la galería.')}finally{setCargando(false)}
  }
  useEffect(()=>{if(puede)void cargar()},[puede]);
- async function auditoria(accion:string,id:string,detalle:string){const {data}=await supabase.auth.getSession();const {error}=await supabase.from('auditoria').insert({user_id:data.session?.user.id,user_email:data.session?.user.email??'',accion,entidad:'fotos',entidad_id:id,detalle});if(error)toast.error('El cambio se guardó, pero no se pudo registrar en auditoría.')}
+ async function auditoria(accion:string,id:string,detalle:string){const {data}=await supabase.auth.getSession();const {error}=await supabase.from('auditoria').insert({user_id:data.session?.user.id??null,user_email:data.session?.user.email??'',accion,entidad:'fotos',entidad_id:id,detalle});if(error)toast.error('El cambio se guardó, pero no se pudo registrar en auditoría.')}
  async function actualizar(){await query.invalidateQueries();await cargar()}
  async function subir(files:File[]){
   if(!album||subiendo)return;

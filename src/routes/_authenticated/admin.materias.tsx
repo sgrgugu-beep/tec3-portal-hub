@@ -4,6 +4,8 @@ import { CrudSeccion } from "@/components/admin/crud-seccion";
 import { useSesion } from "@/hooks/use-sesion";
 
 export const Route = createFileRoute("/_authenticated/admin/materias")({
+  head: () => ({ meta: [{ title: "Administrar materias — Técnica 3 Avellaneda" }, { name: 'description', content: "Administrar materias de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:title', content: "Administrar materias — Técnica 3 Avellaneda" }, { property: 'og:description', content: "Administrar materias de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex, nofollow' }] }),
+
   component: AdminMaterias,
 });
 

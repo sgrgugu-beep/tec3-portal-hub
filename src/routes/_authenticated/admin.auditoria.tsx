@@ -14,6 +14,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useSesion } from "@/hooks/use-sesion";
 
 export const Route = createFileRoute("/_authenticated/admin/auditoria")({
+  head: () => ({ meta: [{ title: "Auditoría de cambios — Técnica 3 Avellaneda" }, { name: 'description', content: "Auditoría de cambios de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:title', content: "Auditoría de cambios — Técnica 3 Avellaneda" }, { property: 'og:description', content: "Auditoría de cambios de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex, nofollow' }] }),
+
   component: AdminAuditoria,
 });
 
