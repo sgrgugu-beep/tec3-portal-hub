@@ -9,6 +9,8 @@ import { reclamarSuperAdmin } from "@/lib/admin.functions";
 import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  head: () => ({ meta: [{ title: "Gestión del sitio — Técnica 3 Avellaneda" }, { name: 'description', content: "Gestión del sitio de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:title', content: "Gestión del sitio — Técnica 3 Avellaneda" }, { property: 'og:description', content: "Gestión del sitio de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex, nofollow' }] }),
+
   component: LayoutAdmin,
 });
 

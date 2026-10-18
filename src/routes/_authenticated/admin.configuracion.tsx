@@ -5,6 +5,8 @@ import { useSesion } from "@/hooks/use-sesion";
 import { ConfiguracionDifusion } from '@/components/admin/configuracion-difusion';
 
 export const Route = createFileRoute("/_authenticated/admin/configuracion")({
+  head: () => ({ meta: [{ title: "Configuración del sitio — Técnica 3 Avellaneda" }, { name: 'description', content: "Configuración del sitio de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:title', content: "Configuración del sitio — Técnica 3 Avellaneda" }, { property: 'og:description', content: "Configuración del sitio de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex, nofollow' }] }),
+
   component: AdminConfiguracion,
 });
 

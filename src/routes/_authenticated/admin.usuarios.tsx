@@ -42,6 +42,8 @@ import {
 } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/usuarios")({
+  head: () => ({ meta: [{ title: "Administradores y permisos — Técnica 3 Avellaneda" }, { name: 'description', content: "Administradores y permisos de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:title', content: "Administradores y permisos — Técnica 3 Avellaneda" }, { property: 'og:description', content: "Administradores y permisos de Técnica 3 Avellaneda. Acceso exclusivo para administradores autorizados." }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex, nofollow' }] }),
+
   component: AdminUsuarios,
 });
 
