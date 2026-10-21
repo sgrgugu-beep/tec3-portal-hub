@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Dar personalidad de tecnología interactiva a Inicio y verificar fotos, interacción, temas y tamaños
+
 - [x] Prioridad: galería de fotos y videos con subida múltiple, álbumes y visor accesible
 - [x] Páginas de especialidades con identidad, fotografías y oportunidades gestionables
 - [x] Avisos urgentes visibles y acceso configurable a difusión por WhatsApp
