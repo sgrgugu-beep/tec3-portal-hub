@@ -6,7 +6,7 @@ import logoEscuela from "@/assets/logo-eest3.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BuscadorGlobal } from "@/components/site/buscador-global";
 import { ThemeToggle } from "@/components/site/theme-toggle";
-import { escuela } from "@/lib/contenido";
+import { useConfig } from "@/hooks/use-config";
 
 export const navegacion = [
   { to: "/", label: "Inicio" },
