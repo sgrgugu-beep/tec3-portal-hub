@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDownRight } from "lucide-react";
+import { useTextos } from "@/hooks/use-textos";
 import comunidad from "@/assets/comunidad-acto.webp.asset.json";
 import estudiantes from "@/assets/comunidad-estudiantil.webp.asset.json";
 import clase from "@/assets/informatica-clase.webp.asset.json";
@@ -26,7 +27,12 @@ interface Props {
   identidad?: keyof typeof escenas;
 }
 
-export function EncabezadoPagina({ titulo, descripcion, volanta, identidad = "institucional" }: Props) {
+export function EncabezadoPagina(props: Props) {
+  const identidad = props.identidad ?? "institucional";
+  const t = useTextos();
+  const titulo = t(`texto.${identidad}.titulo`, props.titulo);
+  const descripcion = t(`texto.${identidad}.descripcion`, props.descripcion);
+  const volanta = t(`texto.${identidad}.volanta`, props.volanta ?? "");
   const escena = escenas[identidad];
   return (
     <section className={`cabecera-editorial cabecera-${escena.tipo} identidad-${identidad}`}>
