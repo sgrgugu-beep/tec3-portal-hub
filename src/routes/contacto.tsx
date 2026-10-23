@@ -117,7 +117,7 @@ function Contacto() {
               <Clock className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden="true" />
               <div>
                 <p className="font-medium">Horarios de atención</p>
-                <p className="text-sm text-muted-foreground">{escuela.horarios}</p>
+                <p className="text-sm text-muted-foreground">{config.horarios}</p>
               </div>
             </li>
           </ul>
