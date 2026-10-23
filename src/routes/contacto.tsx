@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { escuela } from "@/lib/contenido";
+import { useConfig } from "@/hooks/use-config";
 import { enviarContacto } from "@/lib/formularios.functions";
 
 const titulo = "Contacto — Técnica 3 Avellaneda";
