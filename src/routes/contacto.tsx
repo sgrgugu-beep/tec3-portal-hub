@@ -85,7 +85,7 @@ function Contacto() {
               <div>
                 <p className="font-medium">Dirección</p>
                 <p className="text-sm text-muted-foreground">
-                  {escuela.direccion}, {escuela.localidad}, {escuela.provincia}
+                  {config.direccion}
                 </p>
               </div>
             </li>

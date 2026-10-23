@@ -37,7 +37,7 @@ export function PortadaViva() {
           <p className="technical-label flex items-center gap-3 text-institutional-foreground"><span className="indicador-vivo" aria-hidden="true" />Educación técnica pública · Wilde</p>
           <h1 className="mt-7 font-display text-5xl font-semibold leading-[1.08] sm:text-7xl lg:text-8xl">Técnica 3<span className="block text-institutional-accent">Avellaneda.</span></h1>
           <p className="mt-5 font-display text-lg text-institutional-foreground/90 sm:text-xl">“República de México”</p>
-          <p className="mt-7 max-w-lg text-base leading-relaxed text-institutional-foreground/85">{escuela.nombre}. Proyectos reales, talleres equipados y una comunidad que acompaña cada trayectoria.</p>
+          <p className="mt-7 max-w-lg text-base leading-relaxed text-institutional-foreground/85">{config.nombre}. Proyectos reales, talleres equipados y una comunidad que acompaña cada trayectoria.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary" className="group"><Link to="/contacto">Inscripciones <ArrowDownRight className="ml-3 size-4 transition-transform group-hover:translate-x-1 group-hover:translate-y-1" /></Link></Button>
             <Button asChild size="lg" variant="ghost" className="text-institutional-foreground hover:bg-institutional-foreground/15 hover:text-institutional-foreground"><Link to="/institucional">Conocer la escuela <ArrowRight className="ml-3 size-4" /></Link></Button>
