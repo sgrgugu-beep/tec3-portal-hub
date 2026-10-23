@@ -15,3 +15,4 @@
 - Feature colors belong to semantic CSS tokens and shared specialty identities, so public pages and management controls stay theme-compatible.
 - Homepage photographic interactions are isolated in a browser-safe presentation component with CSS-based movement and reduced-motion/touch guards, so content loading and administrative workflows remain unchanged.
 - Public inner pages share explicit photographic header identities and page-scoped editorial styles; keep their presentation separate from loaders, forms and permission logic to preserve existing workflows.
+- Editable page copy lives in a central text catalog with defaults, stored as `texto.*` keys in site configuration and preloaded by the root loader, so every page can be edited from the panel without hydration flicker.
