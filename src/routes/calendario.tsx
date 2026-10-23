@@ -78,8 +78,8 @@ function Calendario() {
   }, [mes]);
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-calendario">
+      <EncabezadoPagina identidad="calendario"
         volanta="Agenda escolar"
         titulo="Calendario de actividades"
         descripcion="Consultá las próximas actividades de la escuela: actos, reuniones con las familias, mesas de examen, jornadas y clases especiales."
@@ -236,6 +236,6 @@ function Calendario() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

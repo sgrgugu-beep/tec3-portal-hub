@@ -57,8 +57,8 @@ function Materias() {
 
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-materias">
+      <EncabezadoPagina identidad="materias"
         volanta="Propuesta curricular"
         titulo="Materias por año y especialidad"
         descripcion="La formación se organiza en un Ciclo Básico común de 1° a 3° año y un Ciclo Superior de 4° a 7° año en el que cada estudiante cursa una de las tres especialidades técnicas."
@@ -180,6 +180,6 @@ function Materias() {
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 }

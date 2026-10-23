@@ -23,8 +23,8 @@ function Galeria(){
  const actual=indice===null?null:medios[indice];
  const mover=(delta:number)=>setIndice(i=>i===null||medios.length===0?null:(i+delta+medios.length)%medios.length);
  useEffect(()=>{if(indice===null)return;const tecla=(e:KeyboardEvent)=>{if(e.key==='ArrowRight'){e.preventDefault();mover(1)}if(e.key==='ArrowLeft'){e.preventDefault();mover(-1)}};window.addEventListener('keydown',tecla);return()=>window.removeEventListener('keydown',tecla)},[indice,medios.length]);
- return <>
- <EncabezadoPagina volanta="Nuestra escuela en imágenes" titulo="Galería" descripcion="Un recorrido por los proyectos de los talleres, los actos institucionales y las jornadas que compartimos con la comunidad educativa."/>
+ return <div className="pagina-editorial identidad-galeria">
+ <EncabezadoPagina identidad="galeria" volanta="Nuestra escuela en imágenes" titulo="Galería" descripcion="Un recorrido por los proyectos de los talleres, los actos institucionales y las jornadas que compartimos con la comunidad educativa."/>
  <div className="contenedor py-10 sm:py-14">
   <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
    <fieldset className="min-w-0"><legend className="text-sm font-semibold">Álbumes</legend><div className="mt-3 flex flex-wrap gap-2"><Button size="sm" variant={album==='todos'?'default':'outline'} aria-pressed={album==='todos'} onClick={()=>setAlbum('todos')}>Todos</Button>{albumes.filter(a=>a.fotos.length>0).map(a=><Button key={a.slug} size="sm" variant={album===a.slug?'default':'outline'} aria-pressed={album===a.slug} onClick={()=>setAlbum(a.slug)}>{a.titulo}</Button>)}</div></fieldset>
@@ -35,5 +35,5 @@ function Galeria(){
   {medios.length===0&&<div className="py-20 text-center"><Images className="mx-auto size-10 text-accent"/><h2 className="mt-4 text-xl font-semibold">Todavía no hay archivos para esta selección</h2><Button variant="link" onClick={()=>{setAlbum('todos');setTipo('todos');setBusqueda('')}}>Ver toda la galería</Button></div>}
  </div>
  <Dialog open={actual!=null} onOpenChange={v=>{if(!v)setIndice(null)}}><DialogContent className="max-h-[95vh] overflow-y-auto p-3 sm:max-w-5xl"><DialogTitle className="pr-8 text-base">{actual?.alt||'Galería'}</DialogTitle><DialogDescription>{actual?.album}</DialogDescription>{actual&&(actual.tipo==='video'?<video key={actual.src} src={actual.src} controls playsInline autoPlay poster={actual.miniatura||undefined} className="max-h-[65vh] w-full bg-institutional"/>:<img src={actual.src} alt={actual.alt} className="max-h-[65vh] w-full object-contain"/>)}<div className="flex items-center justify-between"><Button variant="outline" size="icon" aria-label="Archivo anterior" onClick={()=>mover(-1)} disabled={medios.length<2}><ArrowLeft/></Button><p aria-live="polite" className="text-sm text-muted-foreground">{indice===null?0:indice+1} / {medios.length}</p><Button variant="outline" size="icon" aria-label="Archivo siguiente" onClick={()=>mover(1)} disabled={medios.length<2}><ArrowRight/></Button></div></DialogContent></Dialog>
- </>;
+ </div>;
 }
