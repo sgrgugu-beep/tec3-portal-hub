@@ -66,8 +66,8 @@ function Contacto() {
   }
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-contacto">
+      <EncabezadoPagina identidad="contacto"
         volanta="Estamos para ayudarte"
         titulo="Contacto"
         descripcion="Escribinos por consultas de inscripción, documentación, trayectorias escolares o propuestas de articulación con instituciones y empresas."
@@ -161,6 +161,6 @@ function Contacto() {
           </form>
         </section>
       </div>
-    </>
+    </div>
   );
 }

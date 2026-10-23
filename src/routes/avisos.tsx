@@ -60,8 +60,8 @@ function Avisos() {
 
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-avisos">
+      <EncabezadoPagina identidad="avisos"
         volanta="Comunicación institucional"
         titulo="Avisos y novedades"
         descripcion="Toda la información oficial de la escuela en un solo lugar: comunicados de la dirección, avisos para las familias y novedades del Centro de Estudiantes."
@@ -149,6 +149,6 @@ function Avisos() {
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 }

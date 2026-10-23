@@ -42,8 +42,8 @@ function Institucional() {
 
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-institucional">
+      <EncabezadoPagina identidad="institucional"
         volanta="Nuestra escuela"
         titulo="Una comunidad educativa que forma técnicos y técnicas"
         descripcion="Somos una escuela pública de educación secundaria técnica de Avellaneda. Acompañamos las trayectorias de cada estudiante desde el ciclo básico hasta el título técnico, articulando aula, taller y prácticas profesionalizantes."
@@ -140,6 +140,6 @@ function Institucional() {
           </ul>
         </aside>
       </div>
-    </>
+    </div>
   );
 }

@@ -80,8 +80,8 @@ function CentroDeEstudiantes() {
   }
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-centro">
+      <EncabezadoPagina identidad="centro"
         volanta="Participación estudiantil"
         titulo="Centro de Estudiantes"
         descripcion="El Centro de Estudiantes representa la voz de los y las estudiantes de la escuela: organiza actividades, canaliza propuestas y construye comunidad junto al equipo directivo."
@@ -170,6 +170,6 @@ function CentroDeEstudiantes() {
           </form>
         </section>
       </div>
-    </>
+    </div>
   );
 }

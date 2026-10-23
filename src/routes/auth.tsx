@@ -19,8 +19,10 @@ export const Route = createFileRoute("/auth")({
           "Ingreso al panel de administración del sitio de la Escuela Técnica N° 3 de Avellaneda.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Acceso administradores" },
-      { property: "og:description", content: "Panel de gestión institucional." },
+      { property: "og:title", content: "Acceso administradores — Técnica 3 Avellaneda" },
+      { property: "og:description", content: "Panel de gestión institucional de Técnica 3 Avellaneda." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: PaginaAuth,
@@ -87,7 +89,7 @@ function PaginaAuth() {
 
   return (
     <div className="contenedor flex min-h-[70vh] items-center justify-center py-16">
-      <div className="w-full max-w-md rounded-xl border border-border bg-card p-8 shadow-sm">
+      <div className="acceso-editorial w-full max-w-md border border-border bg-card p-8">
         <div className="mb-6 flex items-center gap-3">
           <img
             src={logoEscuela.url}

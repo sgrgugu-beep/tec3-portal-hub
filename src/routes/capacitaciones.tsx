@@ -47,8 +47,8 @@ function Capacitaciones() {
 
 
   return (
-    <>
-      <EncabezadoPagina
+    <div className="pagina-editorial identidad-capacitaciones">
+      <EncabezadoPagina identidad="capacitaciones"
         volanta="Formación continua"
         titulo="Capacitaciones abiertas a la comunidad"
         descripcion="La escuela dicta capacitaciones para estudiantes, egresados, familias y docentes, aprovechando los talleres, laboratorios y la experiencia de sus departamentos técnicos."
@@ -153,6 +153,6 @@ function Capacitaciones() {
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 }
