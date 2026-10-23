@@ -23,6 +23,7 @@ export function PortadaViva() {
     ref.current?.style.setProperty('--foto-x', `${((event.clientX - rect.left) / rect.width - 0.5) * 12}px`);
     ref.current?.style.setProperty('--foto-y', `${((event.clientY - rect.top) / rect.height - 0.5) * 8}px`);
   };
+  if (!escena) return null;
   return (
     <section ref={ref} className={`portada-viva ${escena.clase}`} onPointerMove={mover} onPointerLeave={() => { ref.current?.style.setProperty('--foto-x', '0px'); ref.current?.style.setProperty('--foto-y', '0px'); }} aria-label="Técnica 3 Avellaneda">
       <div className="portada-fotografias">
