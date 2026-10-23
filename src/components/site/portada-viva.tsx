@@ -16,6 +16,7 @@ const escenas = [
 
 export function PortadaViva() {
   const [activa, setActiva] = useState(0);
+  const config = useConfig();
   const ref = useRef<HTMLElement>(null);
   const escena = escenas[activa] ?? escenas[0];
   const mover = (event: PointerEvent<HTMLElement>) => {

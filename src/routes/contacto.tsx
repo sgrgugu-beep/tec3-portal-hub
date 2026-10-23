@@ -35,6 +35,7 @@ export const Route = createFileRoute("/contacto")({
 
 function Contacto() {
   const enviar = useServerFn(enviarContacto);
+  const config = useConfig();
   const [enviando, setEnviando] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
