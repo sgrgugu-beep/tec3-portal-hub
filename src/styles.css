@@ -355,3 +355,89 @@ footer {
   .foto-editorial img, .tarjeta-especialidad { transition: none; transform: none; }
   .foto-editorial:hover img, .tarjeta-especialidad:hover { transform: none; }
 }
+
+/* Inner pages: a single photographic subject, generous space, restrained accents. */
+.pagina-editorial { --page-accent: var(--accent); }
+.identidad-institucional { --page-accent: var(--accent); }
+.identidad-avisos, .identidad-contacto { --page-accent: var(--editorial-coral); }
+.identidad-calendario, .identidad-materias { --page-accent: var(--accent); }
+.identidad-capacitaciones, .identidad-especialidades { --page-accent: var(--editorial-violet); }
+.identidad-centro, .identidad-galeria { --page-accent: var(--chart-4); }
+.cabecera-editorial { position: relative; isolation: isolate; overflow: hidden; background: var(--background); }
+.cabecera-imagen, .cabecera-velo { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.cabecera-imagen img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; animation: foto-cabecera 1100ms cubic-bezier(.22,1,.36,1) both; }
+.cabecera-contenido { position: relative; padding-block: 2rem 3.5rem; min-height: 390px; }
+.cabecera-ruta { display: flex; flex-wrap: wrap; gap: .65rem; font-size: .6875rem; opacity: .8; }
+.cabecera-ruta a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.cabecera-volanta { margin-top: 3rem; color: var(--page-accent); }
+.cabecera-titulo { margin-top: 1rem; max-width: 18ch; font-size: 3rem; line-height: 1.12; text-wrap: balance; }
+.cabecera-descripcion { margin-top: 1.5rem; max-width: 54ch; font-size: 1rem; line-height: 1.8; color: var(--muted-foreground); }
+.cabecera-flecha { margin-top: 2rem; width: 2rem; height: 2rem; color: var(--page-accent); }
+.cabecera-editorial.cabecera-editorial .cabecera-imagen { left: 42%; }
+.cabecera-editorial.cabecera-editorial .cabecera-velo { background: linear-gradient(90deg, var(--background) 0%, var(--background) 36%, color-mix(in oklab, var(--background) 92%, transparent) 48%, color-mix(in oklab, var(--background) 10%, transparent) 74%); }
+.cabecera-editorial.cabecera-editorial .cabecera-titulo { max-width: 17ch; }
+.cabecera-editorial.cabecera-editorial .cabecera-descripcion { max-width: 48ch; }
+.cabecera-panoramica, .cabecera-comunidad { color: var(--institutional-foreground); background: var(--hero-shade); }
+.cabecera-panoramica .cabecera-imagen, .cabecera-comunidad .cabecera-imagen { left: 0 !important; }
+.cabecera-panoramica .cabecera-velo, .cabecera-comunidad .cabecera-velo { background: linear-gradient(90deg, color-mix(in oklab, var(--hero-shade) 92%, transparent), color-mix(in oklab, var(--hero-shade) 72%, transparent) 44%, color-mix(in oklab, var(--hero-shade) 12%, transparent)) !important; }
+.cabecera-panoramica .cabecera-contenido { min-height: 440px; }
+.cabecera-panoramica .cabecera-volanta, .cabecera-comunidad .cabecera-volanta, .cabecera-panoramica .cabecera-flecha, .cabecera-comunidad .cabecera-flecha { color: var(--editorial-lime); }
+.cabecera-panoramica .cabecera-descripcion, .cabecera-comunidad .cabecera-descripcion { color: var(--institutional-foreground); }
+.cabecera-comunidad .cabecera-contenido { min-height: 450px; text-align: center; }
+.cabecera-comunidad .cabecera-titulo, .cabecera-comunidad .cabecera-descripcion, .cabecera-comunidad .cabecera-flecha { margin-inline: auto; }
+.cabecera-comunidad .cabecera-velo { background: color-mix(in oklab, var(--hero-shade) 72%, transparent) !important; }
+.pagina-editorial > .contenedor { padding-block: 3.5rem 5rem; }
+.pagina-editorial .titulo-seccion { text-wrap: balance; }
+.pagina-editorial .tarjeta { box-shadow: none; border-color: color-mix(in oklab, var(--page-accent) 16%, var(--border)); }
+.pagina-editorial .tarjeta-interactiva:hover { box-shadow: var(--shadow-institucional); border-color: var(--page-accent); }
+.pagina-editorial article h2, .pagina-editorial article h3 { text-wrap: balance; }
+.pagina-editorial fieldset legend { color: var(--page-accent); }
+.pagina-editorial [aria-pressed="true"] { box-shadow: 0 3px 0 color-mix(in oklab, var(--page-accent) 45%, transparent); }
+.identidad-avisos ul > li > article { border: 0; border-top: 2px solid var(--page-accent); border-radius: 0; background: transparent; padding-inline: 0; }
+.identidad-avisos ul > li:nth-child(3n + 2) { --page-accent: var(--accent); }
+.identidad-avisos ul > li:nth-child(3n) { --page-accent: var(--editorial-violet); }
+.identidad-calendario ul > li > article { border: 0; border-radius: 0; background: transparent; }
+.identidad-calendario ul > li > article > div:first-child { background: var(--institutional); color: var(--institutional-foreground); padding-block: 1rem; }
+.identidad-materias ul > li > article { border: 0; border-left: 3px solid var(--page-accent); background: var(--surface); }
+.identidad-capacitaciones ul > li > article { border: 0; border-top: 3px solid var(--page-accent); padding: 2rem; background: var(--surface); }
+.identidad-contacto section[aria-labelledby="formulario-contacto"], .identidad-centro section[aria-labelledby="titulo-propuestas"] { border: 0; border-radius: 0; border-top: 3px solid var(--page-accent); background: var(--surface); padding: 2rem; }
+.identidad-centro ul > li.tarjeta { border: 0; border-radius: 0; background: var(--surface); border-left: 3px solid var(--page-accent); }
+.identidad-galeria .columns-1 > div:nth-child(even) { padding-top: 1.25rem; }
+.identidad-galeria .columns-1 .group { box-shadow: none; border: 0; border-radius: 4px; }
+.identidad-galeria .columns-1 .group > div:last-child { padding-inline: 0; }
+.especialidad-editorial .specialty-cover { background: linear-gradient(90deg, var(--hero-shade), color-mix(in oklab, var(--hero-shade) 86%, transparent) 35%, color-mix(in oklab, var(--hero-shade) 8%, transparent) 80%); }
+.especialidad-editorial > section:first-child h1 { max-width: 16ch; text-wrap: balance; }
+.especialidad-editorial > section:first-child img { animation: foto-cabecera 1100ms cubic-bezier(.22,1,.36,1) both; }
+.especialidad-editorial > section:first-child .technical-label { color: var(--editorial-lime); }
+.especialidad-editorial > section:nth-child(2) { column-gap: 5rem; }
+.especialidad-editorial > section:nth-child(2) > div:last-child { border: 0; padding: 2rem; background: var(--surface); }
+.especialidades-listado > div:nth-child(even) a img { order: 2; }
+.especialidades-listado a { border: 0; align-items: center; }
+.especialidades-listado a img { border-radius: 4px; transition: transform 650ms ease; }
+.especialidades-listado a:hover img { transform: scale(.98); }
+.especialidades-listado > div + div { padding-top: 2rem; }
+.acceso-editorial { border-top: 3px solid var(--accent); border-radius: 4px; box-shadow: var(--shadow-institucional); }
+@keyframes foto-cabecera { from { opacity: .5; transform: scale(1.035); } to { opacity: 1; transform: scale(1); } }
+@media (min-width: 1024px) {
+  .cabecera-titulo { font-size: 3.5rem; }
+  .cabecera-contenido { padding-block: 2rem 4rem; }
+  .cabecera-editorial .cabecera-descripcion { max-width: 48%; }
+}
+@media (max-width: 767px) {
+  .cabecera-titulo { font-size: 2.25rem; max-width: 20ch; }
+  .cabecera-contenido, .cabecera-panoramica .cabecera-contenido, .cabecera-comunidad .cabecera-contenido { min-height: 0; padding-block: 1.5rem 2.5rem; }
+  .cabecera-volanta { margin-top: 2rem; }
+  .cabecera-descripcion { font-size: .875rem; max-width: 100%; }
+  .cabecera-editorial.cabecera-editorial .cabecera-imagen { left: 0; opacity: .13; }
+  .cabecera-editorial.cabecera-editorial .cabecera-velo { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 50%, transparent)); }
+  .cabecera-panoramica .cabecera-imagen, .cabecera-comunidad .cabecera-imagen { opacity: 1 !important; }
+  .cabecera-panoramica .cabecera-velo { background: color-mix(in oklab, var(--hero-shade) 78%, transparent) !important; }
+  .pagina-editorial > .contenedor { padding-block: 2.5rem 3rem; }
+  .especialidades-listado > div:nth-child(even) a img { order: 0; }
+  .identidad-galeria .columns-1 > div:nth-child(even) { padding-top: 0; }
+  .identidad-contacto section[aria-labelledby="formulario-contacto"], .identidad-centro section[aria-labelledby="titulo-propuestas"] { padding: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabecera-imagen img, .especialidad-editorial > section:first-child img { animation: none; }
+  .especialidades-listado a img { transition: none; transform: none; }
+}

@@ -14,3 +14,4 @@
 - Gallery media remains in `fotos` with an explicit photo/video type; specialty editorial pages and opportunities are separate from curriculum management to preserve existing workflows.
 - Feature colors belong to semantic CSS tokens and shared specialty identities, so public pages and management controls stay theme-compatible.
 - Homepage photographic interactions are isolated in a browser-safe presentation component with CSS-based movement and reduced-motion/touch guards, so content loading and administrative workflows remain unchanged.
+- Public inner pages share explicit photographic header identities and page-scoped editorial styles; keep their presentation separate from loaders, forms and permission logic to preserve existing workflows.
