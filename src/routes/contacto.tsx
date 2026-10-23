@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { escuela } from "@/lib/contenido";
+import { useConfig } from "@/hooks/use-config";
 import { enviarContacto } from "@/lib/formularios.functions";
 
 const titulo = "Contacto — Técnica 3 Avellaneda";
@@ -35,6 +35,7 @@ export const Route = createFileRoute("/contacto")({
 
 function Contacto() {
   const enviar = useServerFn(enviarContacto);
+  const config = useConfig();
   const [enviando, setEnviando] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -84,7 +85,7 @@ function Contacto() {
               <div>
                 <p className="font-medium">Dirección</p>
                 <p className="text-sm text-muted-foreground">
-                  {escuela.direccion}, {escuela.localidad}, {escuela.provincia}
+                  {config.direccion}
                 </p>
               </div>
             </li>
@@ -93,10 +94,10 @@ function Contacto() {
               <div>
                 <p className="font-medium">Teléfono</p>
                 <a
-                  href={`tel:${escuela.telefono.replace(/\s/g, "")}`}
+                  href={`tel:${config.telefono.replace(/\s/g, "")}`}
                   className="text-sm text-muted-foreground hover:text-primary"
                 >
-                  {escuela.telefono}
+                  {config.telefono}
                 </a>
               </div>
             </li>
@@ -105,10 +106,10 @@ function Contacto() {
               <div>
                 <p className="font-medium">Correo electrónico</p>
                 <a
-                  href={`mailto:${escuela.email}`}
+                  href={`mailto:${config.email}`}
                   className="text-sm text-muted-foreground hover:text-primary"
                 >
-                  {escuela.email}
+                  {config.email}
                 </a>
               </div>
             </li>
@@ -116,7 +117,7 @@ function Contacto() {
               <Clock className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden="true" />
               <div>
                 <p className="font-medium">Horarios de atención</p>
-                <p className="text-sm text-muted-foreground">{escuela.horarios}</p>
+                <p className="text-sm text-muted-foreground">{config.horarios}</p>
               </div>
             </li>
           </ul>
