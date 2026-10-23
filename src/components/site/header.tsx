@@ -23,6 +23,7 @@ export const navegacion = [
 
 export function Header() {
   const [abierto, setAbierto] = useState(false);
+  const config = useConfig();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
