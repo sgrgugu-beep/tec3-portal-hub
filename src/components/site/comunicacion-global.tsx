@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation } from '@tanstack/react-router';
+import { useConfig } from '@/hooks/use-config';
 import { AlertTriangle } from 'lucide-react';
 
 function LogoWhatsapp({ className }: { className?: string }) {
@@ -10,18 +11,18 @@ function LogoWhatsapp({ className }: { className?: string }) {
     </svg>
   );
 }
-import { consultaAvisos, consultaConfig } from '@/lib/consultas';
+import { consultaAvisos } from '@/lib/consultas';
 import { avisosUrgentes, enlaceWhatsapp } from '@/lib/media';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 export function ComunicacionGlobal(){
- const {data:avisos=[]}=useQuery(consultaAvisos);const {data:config={}}=useQuery(consultaConfig);
+ const {data:avisos=[]}=useQuery(consultaAvisos);const config=useConfig();
  const path=useLocation({select:l=>l.pathname});const admin=path.startsWith('/admin')||path==='/auth';
  const urgentes=avisosUrgentes(avisos);const firma=urgentes.map(a=>a.slug+a.titulo+a.cuerpo).join('|');
  const [abierto,setAbierto]=useState(false);const [leido,setLeido]=useState('');
  useEffect(()=>{if(firma&&firma!==leido&&!admin)setAbierto(true)},[firma,leido,admin]);
- const whatsapp=enlaceWhatsapp(config['whatsapp_difusion']??'');
+ const whatsapp=enlaceWhatsapp(config.whatsapp);
  if(admin)return null;
  return <>
  {urgentes.length>0&&<aside role="alert" className="bg-destructive text-destructive-foreground"><div className="contenedor grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 py-4"><AlertTriangle className="size-6 shrink-0"/><div className="min-w-0"><p className="technical-label">Aviso urgente</p><p className="mt-1 text-sm font-semibold">{urgentes.map(a=>a.titulo).join(' · ')}</p></div><Button variant="ghost" className="shrink-0 text-destructive-foreground hover:bg-destructive-foreground/10 hover:text-destructive-foreground" onClick={()=>setAbierto(true)}>Ver aviso</Button></div></aside>}
