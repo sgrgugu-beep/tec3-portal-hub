@@ -94,10 +94,10 @@ function Contacto() {
               <div>
                 <p className="font-medium">Teléfono</p>
                 <a
-                  href={`tel:${escuela.telefono.replace(/\s/g, "")}`}
+                  href={`tel:${config.telefono.replace(/\s/g, "")}`}
                   className="text-sm text-muted-foreground hover:text-primary"
                 >
-                  {escuela.telefono}
+                  {config.telefono}
                 </a>
               </div>
             </li>
@@ -106,10 +106,10 @@ function Contacto() {
               <div>
                 <p className="font-medium">Correo electrónico</p>
                 <a
-                  href={`mailto:${escuela.email}`}
+                  href={`mailto:${config.email}`}
                   className="text-sm text-muted-foreground hover:text-primary"
                 >
-                  {escuela.email}
+                  {config.email}
                 </a>
               </div>
             </li>
