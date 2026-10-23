@@ -342,6 +342,11 @@ footer {
 .agenda-viva:hover .agenda-color { color: var(--institutional-foreground); }
 @media (min-width: 768px) { .tarjeta-especialidad-desfasada { margin-top: 3rem; } }
 @media (max-width: 639px) {
+  .portada-viva > .contenedor { padding-block: 2rem; }
+  .portada-viva h1 { margin-top: 1.25rem; }
+  .portada-viva h1 + p { margin-top: 0.75rem; }
+  .portada-viva h1 + p + p { margin-top: 1.25rem; font-size: 0.875rem; }
+  .portada-viva [role="group"] { margin-top: 1.5rem; }
   .portada-foto { object-position: 62% 50%; }
   .portada-velo { background: linear-gradient(90deg, color-mix(in oklab, var(--hero-shade) 91%, transparent), color-mix(in oklab, var(--hero-shade) 62%, transparent)), linear-gradient(0deg, var(--hero-shade), transparent 60%); }
 }
