@@ -34,10 +34,10 @@ export function Header() {
         Ir al contenido principal
       </a>
       <div className="contenedor flex h-16 items-center justify-between gap-2 sm:gap-4">
-        <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`Inicio — ${escuela.nombreCorto}`}>
+        <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label={`Inicio — ${config.nombreCorto}`}>
           <img
             src={logoEscuela.url}
-            alt="Escudo de la E.E.S.T. N° 3 República de México, Wilde, Avellaneda"
+            alt={`Escudo de ${config.nombre}`}
             className="size-9 shrink-0 rounded-md object-contain sm:size-10"
             width={40}
             height={40}
@@ -45,9 +45,9 @@ export function Header() {
           <span className="min-w-0 leading-tight">
             <span className="block whitespace-nowrap font-display text-sm font-semibold sm:text-base">
               <span className="sm:hidden">Técnica 3</span>
-              <span className="hidden sm:inline">Técnica 3 Avellaneda</span>
+              <span className="hidden sm:inline">{config.nombreCorto}</span>
             </span>
-            <span className="hidden text-xs text-muted-foreground md:block">E.E.S.T. N° 3 "República de México"</span>
+            <span className="hidden text-xs text-muted-foreground md:block">{config.nombre}</span>
           </span>
         </Link>
 
