@@ -63,7 +63,7 @@ function AdminInformacion() {
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">Elegí una página y modificá cualquiera de sus textos. Para separar párrafos, dejá una línea en blanco. Si dejás un campo vacío, se muestra el texto original.</p>
       </header>
       {!cargado ? <p className="text-sm text-muted-foreground">Cargando textos…</p> : (
-        <Tabs defaultValue={paginasTextos[0]?.id}>
+        <Tabs defaultValue="inicio">
           <TabsList className="h-auto flex-wrap justify-start">
             {paginasTextos.map((p) => <TabsTrigger key={p.id} value={p.id}>{p.nombre}</TabsTrigger>)}
           </TabsList>
