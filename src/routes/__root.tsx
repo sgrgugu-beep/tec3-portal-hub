@@ -60,7 +60,8 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(consultaConfig).catch(() => undefined);
+    const config = await context.queryClient.ensureQueryData(consultaConfig).catch(() => ({}) as Record<string, string>);
+    return { config };
   },
   head: () => ({
     meta: [

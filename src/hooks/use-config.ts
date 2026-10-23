@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useRouterState } from "@tanstack/react-router";
 
 import { consultaConfig } from "@/lib/consultas";
 import { escuela } from "@/lib/contenido";
@@ -8,7 +9,11 @@ import { escuela } from "@/lib/contenido";
  * Cada valor tiene un respaldo por si la clave aún no está cargada.
  */
 export function useConfig() {
-  const { data: config = {} } = useQuery(consultaConfig);
+  const inicial = useRouterState({
+    select: (s) => (s.matches[0]?.loaderData as { config?: Record<string, string> } | undefined)?.config,
+  });
+  const { data } = useQuery(consultaConfig);
+  const config: Record<string, string> = data ?? inicial ?? {};
   const texto = (clave: string, respaldo: string) => {
     const valor = config[clave]?.trim();
     return valor ? valor : respaldo;
