@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Extender la identidad visual a todas las páginas públicas internas y verificar sus controles, fotografías y ambos temas
+- [x] Extender la identidad visual a todas las páginas públicas internas y verificar sus controles, fotografías y ambos temas
 - [x] Dar personalidad de tecnología interactiva a Inicio y verificar fotos, interacción, temas y tamaños
 
 - [x] Prioridad: galería de fotos y videos con subida múltiple, álbumes y visor accesible
