@@ -18,6 +18,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ExperienciaScroll, TransicionPagina } from "@/components/site/experiencia";
 import { NoEncontrado } from "@/components/site/no-encontrado";
 import { Button } from "@/components/ui/button";
+import { consultaConfig } from "@/lib/consultas";
 import { ComunicacionGlobal } from '@/components/site/comunicacion-global';
 
 function NotFoundComponent() {
@@ -58,6 +59,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(consultaConfig).catch(() => undefined);
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
