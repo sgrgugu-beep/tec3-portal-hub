@@ -33,6 +33,7 @@ import { Route as AuthenticatedAdminCentroRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminConfiguracionRouteImport } from './routes/_authenticated/admin.configuracion'
 import { Route as AuthenticatedAdminEspecialidadesRouteImport } from './routes/_authenticated/admin.especialidades'
 import { Route as AuthenticatedAdminGaleriaRouteImport } from './routes/_authenticated/admin.galeria'
+import { Route as AuthenticatedAdminInformacionRouteImport } from './routes/_authenticated/admin.informacion'
 import { Route as AuthenticatedAdminInstitucionalRouteImport } from './routes/_authenticated/admin.institucional'
 import { Route as AuthenticatedAdminMateriasRouteImport } from './routes/_authenticated/admin.materias'
 import { Route as AuthenticatedAdminMensajesRouteImport } from './routes/_authenticated/admin.mensajes'
@@ -166,6 +167,12 @@ const AuthenticatedAdminGaleriaRoute =
     path: '/galeria',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminInformacionRoute =
+  AuthenticatedAdminInformacionRouteImport.update({
+    id: '/informacion',
+    path: '/informacion',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminInstitucionalRoute =
   AuthenticatedAdminInstitucionalRouteImport.update({
     id: '/institucional',
@@ -214,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/admin/especialidades': typeof AuthenticatedAdminEspecialidadesRoute
   '/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
+  '/admin/informacion': typeof AuthenticatedAdminInformacionRoute
   '/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
@@ -242,6 +250,7 @@ export interface FileRoutesByTo {
   '/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/admin/especialidades': typeof AuthenticatedAdminEspecialidadesRoute
   '/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
+  '/admin/informacion': typeof AuthenticatedAdminInformacionRoute
   '/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
@@ -273,6 +282,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/configuracion': typeof AuthenticatedAdminConfiguracionRoute
   '/_authenticated/admin/especialidades': typeof AuthenticatedAdminEspecialidadesRoute
   '/_authenticated/admin/galeria': typeof AuthenticatedAdminGaleriaRoute
+  '/_authenticated/admin/informacion': typeof AuthenticatedAdminInformacionRoute
   '/_authenticated/admin/institucional': typeof AuthenticatedAdminInstitucionalRoute
   '/_authenticated/admin/materias': typeof AuthenticatedAdminMateriasRoute
   '/_authenticated/admin/mensajes': typeof AuthenticatedAdminMensajesRoute
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
     | '/admin/configuracion'
     | '/admin/especialidades'
     | '/admin/galeria'
+    | '/admin/informacion'
     | '/admin/institucional'
     | '/admin/materias'
     | '/admin/mensajes'
@@ -332,6 +343,7 @@ export interface FileRouteTypes {
     | '/admin/configuracion'
     | '/admin/especialidades'
     | '/admin/galeria'
+    | '/admin/informacion'
     | '/admin/institucional'
     | '/admin/materias'
     | '/admin/mensajes'
@@ -362,6 +374,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/configuracion'
     | '/_authenticated/admin/especialidades'
     | '/_authenticated/admin/galeria'
+    | '/_authenticated/admin/informacion'
     | '/_authenticated/admin/institucional'
     | '/_authenticated/admin/materias'
     | '/_authenticated/admin/mensajes'
@@ -555,6 +568,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminGaleriaRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/informacion': {
+      id: '/_authenticated/admin/informacion'
+      path: '/informacion'
+      fullPath: '/admin/informacion'
+      preLoaderRoute: typeof AuthenticatedAdminInformacionRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/institucional': {
       id: '/_authenticated/admin/institucional'
       path: '/institucional'
@@ -596,6 +616,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminConfiguracionRoute: typeof AuthenticatedAdminConfiguracionRoute
   AuthenticatedAdminEspecialidadesRoute: typeof AuthenticatedAdminEspecialidadesRoute
   AuthenticatedAdminGaleriaRoute: typeof AuthenticatedAdminGaleriaRoute
+  AuthenticatedAdminInformacionRoute: typeof AuthenticatedAdminInformacionRoute
   AuthenticatedAdminInstitucionalRoute: typeof AuthenticatedAdminInstitucionalRoute
   AuthenticatedAdminMateriasRoute: typeof AuthenticatedAdminMateriasRoute
   AuthenticatedAdminMensajesRoute: typeof AuthenticatedAdminMensajesRoute
@@ -613,6 +634,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminConfiguracionRoute: AuthenticatedAdminConfiguracionRoute,
   AuthenticatedAdminEspecialidadesRoute: AuthenticatedAdminEspecialidadesRoute,
   AuthenticatedAdminGaleriaRoute: AuthenticatedAdminGaleriaRoute,
+  AuthenticatedAdminInformacionRoute: AuthenticatedAdminInformacionRoute,
   AuthenticatedAdminInstitucionalRoute: AuthenticatedAdminInstitucionalRoute,
   AuthenticatedAdminMateriasRoute: AuthenticatedAdminMateriasRoute,
   AuthenticatedAdminMensajesRoute: AuthenticatedAdminMensajesRoute,

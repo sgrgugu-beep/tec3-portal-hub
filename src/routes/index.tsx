@@ -6,6 +6,7 @@ import aulaInformatica from "@/assets/aula-informatica.webp.asset.json";
 import actividadAjedrez from "@/assets/actividad-ajedrez.webp.asset.json";
 import comunidadEstudiantil from "@/assets/comunidad-estudiantil.webp.asset.json";
 import laboratorioAlimentos from "@/assets/laboratorio-alimentos.webp.asset.json";
+import { useTextos } from "@/hooks/use-textos";
 import { PortadaViva } from "@/components/site/portada-viva";
 import proyectoElectronica from "@/assets/proyecto-electronica.webp.asset.json";
 import { ErrorContenido } from "@/components/site/estado-ruta";
@@ -83,6 +84,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Inicio() {
+  const t = useTextos();
   const { data: avisos } = useSuspenseQuery(consultaAvisos);
   const { data: todosLosEventos } = useSuspenseQuery(consultaEventos);
   const { data: especialidades } = useSuspenseQuery(consultaEspecialidades);
@@ -121,9 +123,9 @@ function Inicio() {
       <section className="overflow-hidden bg-background py-16 lg:py-20" aria-labelledby="avisos-destacados">
         <div className="contenedor grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
-            <p className="technical-label text-editorial-coral">Actualidad / 01</p>
-            <h2 id="avisos-destacados" className="mt-4 font-display text-4xl font-semibold leading-tight">Lo importante,<br />en primer plano.</h2>
-            <p className="mt-5 max-w-sm text-muted-foreground">Información para estudiantes, familias y toda la comunidad educativa.</p>
+            <p className="technical-label text-editorial-coral">{t("texto.inicio.avisos_volanta")}</p>
+            <h2 id="avisos-destacados" className="mt-4 font-display text-4xl font-semibold leading-tight">{t("texto.inicio.avisos_titulo")}</h2>
+            <p className="mt-5 max-w-sm text-muted-foreground">{t("texto.inicio.avisos_descripcion")}</p>
             <Button asChild variant="ghost" className="mt-6 px-0"><Link to="/avisos">Todos los avisos <MoveRight className="ml-3 size-4" /></Link></Button>
             <div className="foto-editorial mt-7 max-w-sm"><img src={actividadAjedrez.url} alt="Estudiantes participando de una actividad de ajedrez" loading="lazy" className="aspect-[16/9] w-full object-cover" /></div>
           </Reveal>
@@ -148,8 +150,8 @@ function Inicio() {
       <section className="bg-editorial-surface py-16 lg:py-20" aria-labelledby="proximos-eventos">
         <div className="contenedor">
           <Reveal className="grid gap-8 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7"><p className="technical-label text-accent">Agenda / 02</p><h2 id="proximos-eventos" className="mt-4 font-display text-4xl font-semibold sm:text-5xl">La escuela está en movimiento.</h2></div>
-            <p className="max-w-md text-muted-foreground lg:col-span-5">Próximos encuentros, actos y actividades para organizar la semana.</p>
+            <div className="lg:col-span-7"><p className="technical-label text-accent">{t("texto.inicio.agenda_volanta")}</p><h2 id="proximos-eventos" className="mt-4 font-display text-4xl font-semibold sm:text-5xl">{t("texto.inicio.agenda_titulo")}</h2></div>
+            <p className="max-w-md text-muted-foreground lg:col-span-5">{t("texto.inicio.agenda_descripcion")}</p>
           </Reveal>
           <ul className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {eventos.map((e, index) => { const { dia, mes } = formatearFechaCorta(e.fecha); return (
@@ -167,9 +169,9 @@ function Inicio() {
       <section className="overflow-hidden bg-background py-20 lg:py-28" aria-labelledby="especialidades-inicio">
         <div className="contenedor">
           <Reveal className="max-w-3xl">
-            <p className="technical-label text-editorial-violet">Trayectorias / 03</p>
-            <h2 id="especialidades-inicio" className="mt-4 font-display text-4xl font-semibold sm:text-5xl">Tres maneras de transformar ideas en soluciones.</h2>
-            <p className="mt-5 max-w-2xl text-muted-foreground">Del ciclo básico común a una formación técnica especializada que combina teoría, práctica y proyectos.</p>
+            <p className="technical-label text-editorial-violet">{t("texto.inicio.especialidades_volanta")}</p>
+            <h2 id="especialidades-inicio" className="mt-4 font-display text-4xl font-semibold sm:text-5xl">{t("texto.inicio.especialidades_titulo")}</h2>
+            <p className="mt-5 max-w-2xl text-muted-foreground">{t("texto.inicio.especialidades_descripcion")}</p>
           </Reveal>
           <ul className="mt-12 grid items-start gap-8 md:grid-cols-3 lg:mt-16">
             {especialidades.map((e, index) => {
@@ -197,8 +199,8 @@ function Inicio() {
       <section className="relative isolate overflow-hidden bg-institutional py-16 text-institutional-foreground lg:py-20">
         <img src={comunidadEstudiantil.url} alt="" loading="lazy" className="absolute inset-0 -z-20 size-full object-cover" /><div className="absolute inset-0 -z-10 bg-institutional/90" aria-hidden="true" />
         <Reveal className="contenedor grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8"><p className="technical-label text-institutional-accent">Próximo paso</p><h2 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Conozcan la escuela donde una vocación puede convertirse en oficio y futuro.</h2></div>
-          <div className="lg:col-span-4"><p className="mb-6 text-sm leading-relaxed text-institutional-foreground/65">Coordinamos entrevistas informativas para familias y futuros estudiantes.</p><Button asChild size="lg" variant="secondary" className="w-full rounded-none"><Link to="/contacto"><Mail className="mr-2 size-4" /> Escribinos</Link></Button></div>
+          <div className="lg:col-span-8"><p className="technical-label text-institutional-accent">{t("texto.inicio.cierre_volanta")}</p><h2 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">{t("texto.inicio.cierre_titulo")}</h2></div>
+          <div className="lg:col-span-4"><p className="mb-6 text-sm leading-relaxed text-institutional-foreground/65">{t("texto.inicio.cierre_descripcion")}</p><Button asChild size="lg" variant="secondary" className="w-full rounded-none"><Link to="/contacto"><Mail className="mr-2 size-4" /> {t("texto.inicio.cierre_boton")}</Link></Button></div>
         </Reveal>
       </section>
     </>

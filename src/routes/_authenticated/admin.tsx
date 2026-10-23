@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { LogOut, ChevronDown, FolderOpen } from "lucide-react";
+import { LogOut, ChevronDown, FolderOpen, FileText } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useSesion } from "@/hooks/use-sesion";
@@ -86,6 +86,11 @@ function LayoutAdmin() {
               ))}
           </ul>
         </nav></details>
+        {sesion.puede("configuracion" as never) && (
+          <details open className="rounded-lg border border-border bg-surface p-3"><summary className="flex cursor-pointer items-center justify-between gap-3 py-2 text-sm font-semibold"><span className="flex items-center gap-2"><FileText className="size-4"/>Información del sitio</span><ChevronDown className="size-4"/></summary>
+            <nav aria-label="Textos del sitio"><ul className="space-y-1"><li><Link to="/admin/informacion" activeProps={{ className: "bg-primary text-primary-foreground" }} className="block rounded-md px-3 py-2.5 text-sm transition-colors hover:bg-muted">Textos de todas las páginas</Link></li></ul></nav>
+          </details>
+        )}
         <Button variant="outline" size="sm" className="w-full" onClick={() => void salir()}>
           <LogOut className="mr-2 size-4" aria-hidden="true" /> Cerrar sesión
         </Button>

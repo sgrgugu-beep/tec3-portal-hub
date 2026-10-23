@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { consultaAvisos, consultaIntegrantes } from "@/lib/consultas";
 import { formatearFecha } from "@/lib/contenido";
 import { enviarPropuesta } from "@/lib/formularios.functions";
+import { useTextos } from "@/hooks/use-textos";
 
 const titulo = "Centro de Estudiantes — Técnica 3 Avellaneda";
 const descripcion =
@@ -47,6 +48,7 @@ function CentroDeEstudiantes() {
   const { data: integrantesCentro } = useSuspenseQuery(consultaIntegrantes);
   const { data: avisos } = useSuspenseQuery(consultaAvisos);
   const enviar = useServerFn(enviarPropuesta);
+  const t = useTextos();
   const [enviando, setEnviando] = useState(false);
   const anuncios = avisos.filter((a) => a.categoria === "centro-estudiantes");
 
@@ -93,9 +95,7 @@ function CentroDeEstudiantes() {
             <h2 className="titulo-seccion flex items-center gap-2">
               <Users className="size-5 text-accent" aria-hidden="true" /> Integrantes
             </h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Nombres y cargos de ejemplo, editables desde el panel de administración.
-            </p>
+            {t("texto.centro.integrantes_nota") && <p className="mt-3 text-sm text-muted-foreground">{t("texto.centro.integrantes_nota")}</p>}
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {integrantesCentro.map((i) => (
                 <li key={`${i.rol}-${i.curso}`} className="tarjeta tarjeta-interactiva p-5">
@@ -137,10 +137,7 @@ function CentroDeEstudiantes() {
           <h2 id="titulo-propuestas" className="font-display text-xl font-semibold">
             Enviá tu propuesta
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Contanos tu idea para una actividad, un proyecto o una mejora en la escuela. El mensaje
-            llega directamente al Centro de Estudiantes.
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("texto.centro.propuestas_texto")}</p>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
             <div>
