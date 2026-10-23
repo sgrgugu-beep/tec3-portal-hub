@@ -63,6 +63,10 @@
   --color-institutional-foreground: var(--institutional-foreground);
   --color-institutional-accent: var(--institutional-accent);
   --color-specialty: var(--specialty, var(--primary));
+  --color-editorial-coral: var(--editorial-coral);
+  --color-editorial-lime: var(--editorial-lime);
+  --color-editorial-violet: var(--editorial-violet);
+  --color-editorial-surface: var(--editorial-surface);
 
   --shadow-institucional: 0 1px 2px oklch(0.3 0.06 255 / 0.06), 0 12px 32px -12px oklch(0.3 0.06 255 / 0.18);
   --shadow-elevado: 0 2px 4px oklch(0.3 0.06 255 / 0.08), 0 24px 48px -16px oklch(0.3 0.06 255 / 0.26);
@@ -109,6 +113,11 @@
   --institutional: oklch(0.31 0.075 244);
   --institutional-foreground: oklch(0.985 0.004 232);
   --institutional-accent: oklch(0.64 0.105 200);
+  --editorial-coral: oklch(0.58 0.16 25);
+  --editorial-lime: oklch(0.83 0.16 125);
+  --editorial-violet: oklch(0.52 0.16 300);
+  --editorial-surface: oklch(0.965 0.016 200);
+  --hero-shade: oklch(0.17 0.045 250);
 }
 
 .dark {
@@ -151,6 +160,10 @@
   --institutional: oklch(0.205 0.045 249);
   --institutional-foreground: oklch(0.96 0.008 232);
   --institutional-accent: oklch(0.73 0.105 200);
+  --editorial-coral: oklch(0.76 0.13 25);
+  --editorial-lime: oklch(0.83 0.16 125);
+  --editorial-violet: oklch(0.77 0.12 300);
+  --editorial-surface: oklch(0.235 0.034 200);
 }
 
 @layer base {
@@ -231,7 +244,7 @@
 }
 
 .especialidad-informatica { --specialty: var(--chart-1); }
-.especialidad-electronica { --specialty: var(--chart-2); }
+.especialidad-electronica { --specialty: var(--editorial-violet); }
 .especialidad-alimentos { --specialty: var(--chart-4); }
 .specialty-cover {
   background: linear-gradient(90deg, color-mix(in oklab, var(--institutional) 95%, transparent), color-mix(in oklab, var(--institutional) 66%, transparent) 65%, color-mix(in oklab, var(--institutional) 25%, transparent));
@@ -301,4 +314,39 @@ footer {
     transform: translateY(-2px);
     border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
   }
+}
+
+/* Photographic editorial identity: motion follows input, never controls access. */
+.portada-viva { position: relative; isolation: isolate; overflow: hidden; background: var(--hero-shade); color: var(--institutional-foreground); }
+.portada-fotografias, .portada-velo { position: absolute; inset: 0; pointer-events: none; }
+.portada-fotografias { overflow: hidden; }
+.portada-foto { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: 65% 45%; opacity: 0; transform: scale(1.04) translate(var(--foto-x, 0px), var(--foto-y, 0px)); transition: opacity 650ms ease, transform 900ms ease-out; }
+.portada-foto-activa { opacity: 1; }
+.portada-velo { background: linear-gradient(90deg, var(--hero-shade) 0%, color-mix(in oklab, var(--hero-shade) 88%, transparent) 35%, color-mix(in oklab, var(--hero-shade) 25%, transparent) 75%), linear-gradient(0deg, var(--hero-shade), transparent 35%); }
+.portada-viva .text-institutional-accent { color: var(--editorial-lime); }
+.indicador-vivo { width: 8px; height: 8px; border-radius: 50%; background: var(--editorial-lime); box-shadow: 0 0 0 5px color-mix(in oklab, var(--editorial-lime) 16%, transparent); }
+.selector-escena { color: var(--institutional-foreground); background: color-mix(in oklab, var(--hero-shade) 55%, transparent); border: 1px solid color-mix(in oklab, var(--institutional-foreground) 25%, transparent); backdrop-filter: blur(8px); }
+.selector-escena:hover, .selector-escena-activo { background: var(--institutional-foreground); color: var(--hero-shade); border-color: var(--institutional-foreground); }
+.portada-cifras { background: color-mix(in oklab, var(--hero-shade) 50%, transparent); backdrop-filter: blur(10px); }
+.foto-editorial { position: relative; overflow: hidden; border-radius: 4px; }
+.foto-editorial img { transition: transform 800ms cubic-bezier(.22,1,.36,1); }
+.foto-editorial:hover img { transform: scale(1.04); }
+.tarjeta-especialidad { position: relative; transition: transform 400ms ease; }
+.tarjeta-especialidad:hover { transform: translateY(-6px); }
+.especialidad-informatica.tarjeta-especialidad { --specialty: var(--accent); }
+.agenda-viva:nth-child(3n + 1) { --agenda-accent: var(--editorial-coral); }
+.agenda-viva:nth-child(3n + 2) { --agenda-accent: var(--accent); }
+.agenda-viva:nth-child(3n) { --agenda-accent: var(--editorial-violet); }
+.agenda-viva .agenda-color { color: var(--agenda-accent); }
+.agenda-viva::before { content: ''; position: absolute; top: 0; left: 1.75rem; width: 2rem; height: 4px; background: var(--agenda-accent); border-radius: 0 0 2px 2px; }
+.agenda-viva:hover .agenda-color { color: var(--institutional-foreground); }
+@media (min-width: 768px) { .tarjeta-especialidad-desfasada { margin-top: 3rem; } }
+@media (max-width: 639px) {
+  .portada-foto { object-position: 62% 50%; }
+  .portada-velo { background: linear-gradient(90deg, color-mix(in oklab, var(--hero-shade) 91%, transparent), color-mix(in oklab, var(--hero-shade) 62%, transparent)), linear-gradient(0deg, var(--hero-shade), transparent 60%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portada-foto { transition: none; transform: none; }
+  .foto-editorial img, .tarjeta-especialidad { transition: none; transform: none; }
+  .foto-editorial:hover img, .tarjeta-especialidad:hover { transform: none; }
 }

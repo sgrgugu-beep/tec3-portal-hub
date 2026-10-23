@@ -13,3 +13,4 @@
 - Gallery files use private Storage references (`storage:path`) and signed URLs resolved through publication-aware RLS, because workspace policy forbids public buckets.
 - Gallery media remains in `fotos` with an explicit photo/video type; specialty editorial pages and opportunities are separate from curriculum management to preserve existing workflows.
 - Feature colors belong to semantic CSS tokens and shared specialty identities, so public pages and management controls stay theme-compatible.
+- Homepage photographic interactions are isolated in a browser-safe presentation component with CSS-based movement and reduced-motion/touch guards, so content loading and administrative workflows remain unchanged.
