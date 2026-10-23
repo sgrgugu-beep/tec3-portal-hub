@@ -19,3 +19,4 @@
 - [ ] Conectar el proyecto de Supabase propio del usuario (Connectors → Supabase → New connection)
 - [ ] Tras conectar: aplicar `portable/01_schema.sql` + `portable/02_datos.sql` y recrear el usuario super admin
 - [ ] Cargar contenido real y definir destino de mails de los formularios
+- [x] Manual completo en README y paquete de migración actualizado (01/02/03)
