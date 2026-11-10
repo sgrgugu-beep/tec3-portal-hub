@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useLocation } from '@tanstack/react-router';
+import { Link, useRouterState, useLocation } from '@tanstack/react-router';
 import { useConfig } from '@/hooks/use-config';
+import type { Aviso } from '@/lib/contenido';
 import { AlertTriangle } from 'lucide-react';
 
 function LogoWhatsapp({ className }: { className?: string }) {
@@ -17,7 +18,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 export function ComunicacionGlobal(){
- const {data:avisos=[]}=useQuery(consultaAvisos);const config=useConfig();
+ const inicial=useRouterState({select:(s)=>(s.matches[0]?.loaderData as {avisos?:Aviso[]}|undefined)?.avisos});const {data}=useQuery(consultaAvisos);const avisos=data??inicial??[];const config=useConfig();
  const path=useLocation({select:l=>l.pathname});const admin=path.startsWith('/admin')||path==='/auth';
  const urgentes=avisosUrgentes(avisos);const firma=urgentes.map(a=>a.slug+a.titulo+a.cuerpo).join('|');
  const [abierto,setAbierto]=useState(false);const [leido,setLeido]=useState('');
